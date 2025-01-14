@@ -35,6 +35,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -61,10 +62,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
-//import net.minecraftforge.entity.IEntityAdditionalSpawnData;
+import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.fml.LogicalSide;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +76,7 @@ import static com.tacz.guns.api.event.common.GunDamageSourcePart.NON_ARMOR_PIERC
 /**
  * 动能武器打出的子弹实体。
  */
-public class EntityKineticBullet extends Projectile /*implements IEntityAdditionalSpawnData*/ {
+public class EntityKineticBullet extends Projectile implements IEntityWithComplexSpawn {
     public static final EntityType<EntityKineticBullet> TYPE = EntityType.Builder.<EntityKineticBullet>of(EntityKineticBullet::new, MobCategory.MISC).noSummon().noSave().fireImmune().sized(0.0625F, 0.0625F).clientTrackingRange(5).updateInterval(5).setShouldReceiveVelocityUpdates(false).build("bullet");
     public static final TagKey<EntityType<?>> USE_MAGIC_DAMAGE_ON = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("tacz:use_magic_damage_on"));
     public static final TagKey<EntityType<?>> USE_VOID_DAMAGE_ON = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("tacz:use_void_damage_on"));
@@ -510,55 +510,55 @@ public class EntityKineticBullet extends Projectile /*implements IEntityAddition
         return super.getAddEntityPacket(pEntity);
     }
 
-//    @Override
-//    public void writeSpawnData(FriendlyByteBuf buffer) {
-//        buffer.writeFloat(getXRot());
-//        buffer.writeFloat(getYRot());
-//        buffer.writeDouble(getDeltaMovement().x);
-//        buffer.writeDouble(getDeltaMovement().y);
-//        buffer.writeDouble(getDeltaMovement().z);
-//        Entity entity = getOwner();
-//        buffer.writeInt(entity != null ? entity.getId() : 0);
-//        buffer.writeResourceLocation(ammoId);
-//        buffer.writeFloat(this.gravity);
-//        buffer.writeBoolean(this.explosion);
-//        buffer.writeBoolean(this.igniteEntity);
-//        buffer.writeBoolean(this.igniteBlock);
-//        buffer.writeFloat(this.explosionRadius);
-//        buffer.writeFloat(this.explosionDamage);
-//        buffer.writeInt(this.life);
-//        buffer.writeFloat(this.speed);
-//        buffer.writeFloat(this.friction);
-//        buffer.writeInt(this.pierce);
-//        buffer.writeBoolean(this.isTracerAmmo);
-//        buffer.writeResourceLocation(this.gunId);
-//        buffer.writeResourceLocation(this.gunDisplayId);
-//    }
-//
-//    @Override
-//    public void readSpawnData(FriendlyByteBuf additionalData) {
-//        setXRot(additionalData.readFloat());
-//        setYRot(additionalData.readFloat());
-//        setDeltaMovement(additionalData.readDouble(), additionalData.readDouble(), additionalData.readDouble());
-//        Entity entity = this.level().getEntity(additionalData.readInt());
-//        if (entity != null) {
-//            this.setOwner(entity);
-//        }
-//        this.ammoId = additionalData.readResourceLocation();
-//        this.gravity = additionalData.readFloat();
-//        this.explosion = additionalData.readBoolean();
-//        this.igniteEntity = additionalData.readBoolean();
-//        this.igniteBlock = additionalData.readBoolean();
-//        this.explosionRadius = additionalData.readFloat();
-//        this.explosionDamage = additionalData.readFloat();
-//        this.life = additionalData.readInt();
-//        this.speed = additionalData.readFloat();
-//        this.friction = additionalData.readFloat();
-//        this.pierce = additionalData.readInt();
-//        this.isTracerAmmo = additionalData.readBoolean();
-//        this.gunId = additionalData.readResourceLocation();
-//        this.gunDisplayId = additionalData.readResourceLocation();
-//    }
+    @Override
+    public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
+        buffer.writeFloat(getXRot());
+        buffer.writeFloat(getYRot());
+        buffer.writeDouble(getDeltaMovement().x);
+        buffer.writeDouble(getDeltaMovement().y);
+        buffer.writeDouble(getDeltaMovement().z);
+        Entity entity = getOwner();
+        buffer.writeInt(entity != null ? entity.getId() : 0);
+        buffer.writeResourceLocation(ammoId);
+        buffer.writeFloat(this.gravity);
+        buffer.writeBoolean(this.explosion);
+        buffer.writeBoolean(this.igniteEntity);
+        buffer.writeBoolean(this.igniteBlock);
+        buffer.writeFloat(this.explosionRadius);
+        buffer.writeFloat(this.explosionDamage);
+        buffer.writeInt(this.life);
+        buffer.writeFloat(this.speed);
+        buffer.writeFloat(this.friction);
+        buffer.writeInt(this.pierce);
+        buffer.writeBoolean(this.isTracerAmmo);
+        buffer.writeResourceLocation(this.gunId);
+        buffer.writeResourceLocation(this.gunDisplayId);
+    }
+
+    @Override
+    public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
+        setXRot(additionalData.readFloat());
+        setYRot(additionalData.readFloat());
+        setDeltaMovement(additionalData.readDouble(), additionalData.readDouble(), additionalData.readDouble());
+        Entity entity = this.level().getEntity(additionalData.readInt());
+        if (entity != null) {
+            this.setOwner(entity);
+        }
+        this.ammoId = additionalData.readResourceLocation();
+        this.gravity = additionalData.readFloat();
+        this.explosion = additionalData.readBoolean();
+        this.igniteEntity = additionalData.readBoolean();
+        this.igniteBlock = additionalData.readBoolean();
+        this.explosionRadius = additionalData.readFloat();
+        this.explosionDamage = additionalData.readFloat();
+        this.life = additionalData.readInt();
+        this.speed = additionalData.readFloat();
+        this.friction = additionalData.readFloat();
+        this.pierce = additionalData.readInt();
+        this.isTracerAmmo = additionalData.readBoolean();
+        this.gunId = additionalData.readResourceLocation();
+        this.gunDisplayId = additionalData.readResourceLocation();
+    }
 
     public ResourceLocation getAmmoId() {
         return ammoId;

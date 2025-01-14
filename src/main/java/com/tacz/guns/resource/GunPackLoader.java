@@ -116,7 +116,7 @@ public enum GunPackLoader implements RepositorySource {
         PackLocationInfo info = new PackLocationInfo("tacz_resources", Component.literal("TACZ Resources"), PackSource.BUILT_IN, Optional.empty());
         PackSelectionConfig config = new PackSelectionConfig(true, Pack.Position.BOTTOM, false);
         PackMetadataSection metadataSection = new PackMetadataSection(Component.translatable("tacz.resources.modresources"), SharedConstants.getCurrentVersion().getPackVersion(packType));
-        try (DelegatingPackResources r = new DelegatingPackResources(info, metadataSection, extensionPacks) {
+        DelegatingPackResources r = new DelegatingPackResources(info, metadataSection, extensionPacks) {
             @Override
             public @Nullable IoSupplier<InputStream> getRootResource(String... paths) {
                 if (paths.length == 1 && paths[0].equals("pack.png")) {
@@ -127,9 +127,8 @@ public enum GunPackLoader implements RepositorySource {
                 }
                 return null;
             }
-        }) {
-            return Pack.readMetaAndCreate(info, r.supplier(), packType, config);
-        }
+        };
+        return Pack.readMetaAndCreate(info, r.supplier(), packType, config);
     }
 
     public static @Nullable Path getModIcon(String modId) {

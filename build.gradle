@@ -122,6 +122,7 @@ runs {
         systemProperty 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         dependencies {
             runtime("curse.maven:shoulder-surfing-reloaded-243190:6043496")
+            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
         }
 //        mods {
 //            tacz {
@@ -138,6 +139,7 @@ runs {
         programArguments.addAll '--username', 'mayday_memory'
         dependencies {
             runtime("curse.maven:shoulder-surfing-reloaded-243190:6043496")
+            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
         }
 //        mods {
 //            tacz {
@@ -261,7 +263,7 @@ dependencies {
     compileOnly("mezz.jei:jei-1.21.1-common-api:${jei_version}")
     compileOnly("mezz.jei:jei-1.21.1-neoforge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
-//    localRuntime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
+    runtimeOnly("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
     // 性能分析工具模组
 //    runtimeOnly("curse.maven:spark-361579:4738952")
     // 假人，测试近战伤害

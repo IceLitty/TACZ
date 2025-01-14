@@ -41,7 +41,7 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.api.item.nbt.GunItemDataAccessor.getAttachmentTag`
     - `com.tacz.guns.entity.shooter.LivingEntityAim.zoom`
   - `com.tacz.guns.entity.sync.core.bak.IDataSerializer#write`
-- [ ] Need test destory gun smith table in creative if it correctly canceled
+- [x] Need test destory gun smith table in creative if it correctly canceled
   - `com.tacz.guns.block.GunSmithTableBlockB.playerWillDestroy`
 - [x] There is no method return AABB and produce something about rendering bounding box for block entity, why?
   - `com.tacz.guns.block.entity.GunSmithTableBlockEntity`
@@ -54,7 +54,7 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - [x] How to migrate config system?
   - `com.tacz.guns.config.PreLoadConfig.load`
   - `com.tacz.guns.config.PreLoadModConfig`
-- [ ] Check config screen is working
+- [x] Check config screen is working
   - `com.tacz.guns.compat.cloth.MenuIntegration.registerModsPage`
   - `com.tacz.guns.client.gui.compat.ClothConfigScreen.registerNoClothConfigPage`
 - [x] Check player animation is can use this deprecated method
@@ -84,8 +84,10 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - [ ] hack provider
   - `com.tacz.guns.client.resource.index.ClientAmmoIndex.checkParticle`
   - `com.tacz.guns.client.resource.GunDisplayInstance.checkGunAmmo`
-- [ ] Hide debug
+- [x] Hide debug
   - `com.tacz.guns.network.message.ServerMessageSyncBaseTimestamp.updateBaseTimestamp`
+  - `com.tacz.guns.network.message.ClientMessageSyncBaseTimestamp`
+  - Its a bug I missing replay correctly packet to server, fixed. And not be hide this debug message.
 - [ ] Can I use as Unit DataComponents?
   - `com.tacz.guns.init.ModComponents.CUSTOM_DATA` now without `.networkSynchronized(CustomData.STREAM_CODEC)` as Unit DataComponents.
 - [ ] Twice check nbt tag direct write, rework as get readonly tag and write back when source is ItemStack and no provider.
@@ -95,6 +97,18 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.block.TargetBlock.onProjectileHit` not working
 - [ ] These classes are not modify correctly
   - `com.tacz.guns.init.CapabilityRegistry`
+- [x] Fix rpg crash when explode with entity
+  - `com.tacz.guns.util.block.ProjectileExplosion.explode` with null entity called `BlockRayTrace.rayTraceBlocks`
+- [ ] GunSmithTable not work (recipe ? and render black-purple blank item)
+- [ ] Statue not work
+- [x] 3rd gun pack not loading
+  - Maybe same problem with GunSmithTable recipe problem `com.tacz.guns.resource.CommonAssetsManager.onReload(net.neoforged.neoforge.event.TagsUpdatedEvent)`
+  - Find **unzip folder can loading**, why
+  - Sometimes just /tacz reload then texture can load, why???
+- [ ] Test recipe with type `forge:partial_nbt` in gun pack, may need convert neoforge accepted format
+  - `net.neoforged.neoforge.common.crafting.DataComponentIngredient`
+- [ ] Scope attachment is not working
+  - Seems some angle can see though scope, wtf, need check render method
 - [ ] full runtime test
 - 
 
@@ -135,4 +149,8 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - Networks
   - net.minecraft.network.protocol.game.GameProtocols
   - net.minecraft.network.protocol.game.GamePacketTypes
+- Tags (used for data pack)
+  - net.neoforged.neoforge.common.Tags
+- IngredientTypes
+  - net.neoforged.neoforge.common.NeoForgeMod.INGREDIENT_TYPES
 - 

@@ -34,11 +34,11 @@ public record ServerMessageSyncBaseTimestamp() implements CustomPacketPayload {
     public static void clientHandler(final ServerMessageSyncBaseTimestamp message, final IPayloadContext context) {
         long timestamp = System.currentTimeMillis();
         context.enqueueWork(() -> updateBaseTimestamp(timestamp));
-        context.reply(new ServerMessageSyncBaseTimestamp());
+        context.reply(new ClientMessageSyncBaseTimestamp());
     }
 
     public static void serverHandler(final ServerMessageSyncBaseTimestamp message, final IPayloadContext context) {
-        context.reply(new ServerMessageSyncBaseTimestamp());
+        context.reply(new ClientMessageSyncBaseTimestamp());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -46,7 +46,7 @@ public record ServerMessageSyncBaseTimestamp() implements CustomPacketPayload {
         LocalPlayer player = Objects.requireNonNull(Minecraft.getInstance().player);
         LocalPlayerDataHolder dataHolder = IClientPlayerGunOperator.fromLocalPlayer(player).getDataHolder();
         dataHolder.clientBaseTimestamp = timestamp;
-//        GunMod.LOGGER.debug(MARKER, "Update client base timestamp: {}", dataHolder.clientBaseTimestamp);
+        GunMod.LOGGER.debug(MARKER, "Update client base timestamp: {}", dataHolder.clientBaseTimestamp);
     }
 
     @Override

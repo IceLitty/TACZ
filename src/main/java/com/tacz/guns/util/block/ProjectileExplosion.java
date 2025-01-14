@@ -158,7 +158,8 @@ public class ProjectileExplosion extends Explosion {
                 d[13] = new Vec3(deltaX, deltaY, boundingBox.maxZ);
                 d[14] = new Vec3(deltaX, deltaY, deltaZ);
                 for (int s = 0; s < 15; s++) {
-                    result = BlockRayTrace.rayTraceBlocks(this.level, new ClipContext(explosionPos, d[s], ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity) null));
+                    // 20250114 IceLitty: why put null? with rpg will crash in 1.21.1
+                    result = BlockRayTrace.rayTraceBlocks(this.level, new ClipContext(explosionPos, d[s], ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
                     minDistance = (result.getType() != BlockHitResult.Type.BLOCK) ? Math.min(minDistance, explosionPos.distanceTo(d[s])) : minDistance;
                 }
                 strength = minDistance * 2 / radius;
