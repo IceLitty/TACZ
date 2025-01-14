@@ -10,16 +10,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -27,30 +29,47 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractGunSmithTableBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public AbstractGunSmithTableBlock() {
-        super(Properties.of().sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
+    public AbstractGunSmithTableBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    public static BlockBehaviour.Properties getDefaultProperties() {
+        return Properties.of().sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion();
+    }
+
     @Override
-    public InteractionResult use(BlockState pState, Level level, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHit) {
+    protected InteractionResult useWithoutItem(BlockState pState, Level level, BlockPos pos, Player player, BlockHitResult pHitResult) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
-            BlockEntity blockEntity = level.getBlockEntity(getRootPos(pos, pState));
-            if (blockEntity instanceof GunSmithTableBlockEntity gunSmithTable && player instanceof ServerPlayer serverPlayer) {
-                NetworkHooks.openScreen(serverPlayer, gunSmithTable, (buf) -> {
-                    ResourceLocation rl = gunSmithTable.getId() == null ? DefaultAssets.DEFAULT_BLOCK_ID : gunSmithTable.getId();
-                    buf.writeResourceLocation(rl);
-                });
-            }
+            this.openMenu(pState, level, pos, player);
             return InteractionResult.CONSUME;
+        }
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level level, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (level.isClientSide) {
+            return ItemInteractionResult.SUCCESS;
+        } else {
+            this.openMenu(pState, level, pos, player);
+            return ItemInteractionResult.CONSUME;
+        }
+    }
+
+    private void openMenu(BlockState pState, Level level, BlockPos pos, Player player) {
+        BlockEntity blockEntity = level.getBlockEntity(getRootPos(pos, pState));
+        if (blockEntity instanceof GunSmithTableBlockEntity gunSmithTable && player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.openMenu(gunSmithTable, (buf) -> {
+                ResourceLocation rl = gunSmithTable.getId() == null ? DefaultAssets.DEFAULT_BLOCK_ID : gunSmithTable.getId();
+                buf.writeResourceLocation(rl);
+            });
         }
     }
 
@@ -75,7 +94,6 @@ public abstract class AbstractGunSmithTableBlock extends BaseEntityBlock {
         return PushReaction.DESTROY;
     }
 
-
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(world, pos, state, placer, stack);
@@ -91,7 +109,7 @@ public abstract class AbstractGunSmithTableBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         BlockPos blockPos = getRootPos(pos, state);
         BlockEntity blockentity = level.getBlockEntity(blockPos);
         if (blockentity instanceof GunSmithTableBlockEntity e) {

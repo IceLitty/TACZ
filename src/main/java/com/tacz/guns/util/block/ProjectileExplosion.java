@@ -3,6 +3,8 @@ package com.tacz.guns.util.block;
 import com.google.common.collect.Sets;
 import com.tacz.guns.config.common.AmmoConfig;
 import com.tacz.guns.util.HitboxHelper;
+import com.tacz.guns.util.helper.EventFactoryHelper;
+import com.tacz.guns.util.helper.ProtectionEnchantmentHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -10,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
@@ -39,9 +40,10 @@ public class ProjectileExplosion extends Explosion {
     private final Entity owner;
     private final Entity exploder;
     private final ExplosionDamageCalculator damageCalculator;
+    private final DamageSource damageSource;
 
     public ProjectileExplosion(Level level, Entity owner, Entity exploder, @Nullable DamageSource source, @Nullable ExplosionDamageCalculator damageCalculator, double x, double y, double z, float power, float radius, boolean knockback, Explosion.BlockInteraction mode) {
-        super(level, exploder, source, damageCalculator, x, y, z, radius, AmmoConfig.EXPLOSIVE_AMMO_FIRE.get(), mode);
+        super(level, exploder, x, y, z, radius, AmmoConfig.EXPLOSIVE_AMMO_FIRE.get(), mode);
         this.level = level;
         this.x = x;
         this.y = y;
@@ -52,6 +54,7 @@ public class ProjectileExplosion extends Explosion {
         this.exploder = exploder;
         this.damageCalculator = damageCalculator == null ? DEFAULT_CONTEXT : damageCalculator;
         this.knockback = knockback;
+        this.damageSource = Explosion.getDefaultDamageSource(level, exploder);
     }
 
     @Override
@@ -112,11 +115,11 @@ public class ProjectileExplosion extends Explosion {
         int maxZ = Mth.floor(this.z + (double) radius + 1.0D);
         radius *= 2;
         List<Entity> entities = this.level.getEntities(this.exploder, new AABB(minX, minY, minZ, maxX, maxY, maxZ));
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.level, this, entities, radius);
+        EventFactoryHelper.onExplosionDetonate(this.level, this, entities, radius);
         Vec3 explosionPos = new Vec3(this.x, this.y, this.z);
 
         for (Entity entity : entities) {
-            if (entity.ignoreExplosion()) {
+            if (entity.ignoreExplosion(this)) {
                 continue;
             }
 
@@ -155,7 +158,7 @@ public class ProjectileExplosion extends Explosion {
                 d[13] = new Vec3(deltaX, deltaY, boundingBox.maxZ);
                 d[14] = new Vec3(deltaX, deltaY, deltaZ);
                 for (int s = 0; s < 15; s++) {
-                    result = BlockRayTrace.rayTraceBlocks(this.level, new ClipContext(explosionPos, d[s], ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+                    result = BlockRayTrace.rayTraceBlocks(this.level, new ClipContext(explosionPos, d[s], ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, (Entity) null));
                     minDistance = (result.getType() != BlockHitResult.Type.BLOCK) ? Math.min(minDistance, explosionPos.distanceTo(d[s])) : minDistance;
                 }
                 strength = minDistance * 2 / radius;
@@ -177,10 +180,10 @@ public class ProjectileExplosion extends Explosion {
             }
 
             double damage = 1.0D - strength;
-            entity.hurt(this.getDamageSource(), (float) damage * this.power);
+            entity.hurt(this.damageSource, (float) damage * this.power);
 
             if (entity instanceof LivingEntity) {
-                damage = (float) ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, damage);
+                damage = (float) ProtectionEnchantmentHelper.getExplosionKnockbackAfterDampener((LivingEntity) entity, damage);
             }
 
             float multiplier = this.power * radius / 500;

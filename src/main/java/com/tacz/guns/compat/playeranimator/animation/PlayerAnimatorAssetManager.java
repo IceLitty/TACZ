@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonParseException;
 import com.tacz.guns.GunMod;
 import dev.kosmx.playerAnim.core.data.KeyframeAnimation;
-import dev.kosmx.playerAnim.core.data.gson.AnimationSerializing;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +17,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.*;
 
+@SuppressWarnings("removal")
 public class PlayerAnimatorAssetManager extends SimplePreparableReloadListener<Map<ResourceLocation, HashMap<String, KeyframeAnimation>>> {
     private static PlayerAnimatorAssetManager INSTANCE;
 
@@ -32,7 +32,7 @@ public class PlayerAnimatorAssetManager extends SimplePreparableReloadListener<M
     }
 
     void putAnimation(ResourceLocation id, InputStream stream) throws IOException {
-        List<KeyframeAnimation> keyframeAnimations = AnimationSerializing.deserializeAnimation(stream);
+        List<KeyframeAnimation> keyframeAnimations = dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(stream);
         for (var animation : keyframeAnimations) {
             if (animation.extraData.get("name") instanceof String text) {
                 String name = PlayerAnimationRegistry.serializeTextToString(text).toLowerCase(Locale.ENGLISH);
@@ -65,7 +65,7 @@ public class PlayerAnimatorAssetManager extends SimplePreparableReloadListener<M
             ResourceLocation resourcelocation1 = filetoidconverter.fileToId(resourcelocation);
 
             try (Reader reader = entry.getValue().openAsReader()) {
-                List<KeyframeAnimation> keyframeAnimations = AnimationSerializing.deserializeAnimation(reader);
+                List<KeyframeAnimation> keyframeAnimations = dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
                 for (var animation : keyframeAnimations) {
                     if (animation.extraData.get("name") instanceof String text) {
                         String name = PlayerAnimationRegistry.serializeTextToString(text).toLowerCase(Locale.ENGLISH);

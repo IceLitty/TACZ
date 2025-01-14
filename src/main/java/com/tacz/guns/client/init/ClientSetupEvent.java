@@ -22,18 +22,19 @@ import com.tacz.guns.inventory.tooltip.GunTooltip;
 import com.tacz.guns.item.AmmoBoxItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
-import static net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.CROSSHAIR;
+import static net.neoforged.neoforge.client.gui.VanillaGuiLayers.CROSSHAIR;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT, modid = GunMod.MOD_ID)
+@EventBusSubscriber(modid = GunMod.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientSetupEvent {
     @SubscribeEvent
     public static void onClientSetup(RegisterKeyMappingsEvent event) {
@@ -61,21 +62,17 @@ public class ClientSetupEvent {
     }
 
     @SubscribeEvent
-    public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
+    public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
         // 注册 HUD
-        event.registerAboveAll("tac_gun_hud_overlay", new GunHudOverlay());
-        event.registerAboveAll("tac_kill_amount_overlay", new KillAmountOverlay());
-        event.registerAbove(CROSSHAIR.id(), "tac_interact_key_overlay", new InteractKeyTextOverlay());
-
+        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "tac_gun_hud_overlay"), new GunHudOverlay());
+        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "tac_kill_amount_overlay"), new KillAmountOverlay());
+        event.registerAbove(CROSSHAIR, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "tac_interact_key_overlay"), new InteractKeyTextOverlay());
     }
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         // 注册自己的的硬编码第三人称动画
         event.enqueueWork(ThirdPersonManager::registerDefault);
-
-        // 注册颜色
-        event.enqueueWork(() -> Minecraft.getInstance().getItemColors().register(AmmoBoxItem::getColor, ModItems.AMMO_BOX.get()));
 
         // 注册变种
         // noinspection deprecation

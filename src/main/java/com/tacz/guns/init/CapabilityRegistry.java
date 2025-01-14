@@ -1,14 +1,16 @@
 package com.tacz.guns.init;
 
+import com.tacz.guns.GunMod;
 import com.tacz.guns.entity.sync.core.DataHolder;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+//@EventBusSubscriber(modid = GunMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class CapabilityRegistry {
-    @SubscribeEvent
-    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(DataHolder.class);
-    }
+//    @SubscribeEvent
+//    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+//        event.registerEntity(Capabilities.ItemHandler.ENTITY, ModEntities.BULLET.value(), (entity, context) -> DataHolder::new);
+//    }
 }

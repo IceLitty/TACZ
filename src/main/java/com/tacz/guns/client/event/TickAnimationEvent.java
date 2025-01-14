@@ -3,18 +3,20 @@ package com.tacz.guns.client.event;
 import com.tacz.guns.GunMod;
 import com.tacz.guns.api.TimelessAPI;
 import com.tacz.guns.client.animation.statemachine.GunAnimationConstant;
+import com.tacz.guns.util.helper.MinecraftHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderFrameEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = GunMod.MOD_ID)
+@EventBusSubscriber(modid = GunMod.MOD_ID, value = Dist.CLIENT)
 public class TickAnimationEvent {
     @SubscribeEvent
-    public static void tickAnimation(TickEvent.ClientTickEvent event) {
+    public static void tickAnimation(ClientTickEvent.Pre event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) {
             return;
@@ -39,10 +41,7 @@ public class TickAnimationEvent {
     }
 
     @SubscribeEvent
-    public static void tickAnimation(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            return;
-        }
+    public static void tickAnimation(RenderFrameEvent.Pre event) {
         if (Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
             return;
         }
@@ -56,7 +55,7 @@ public class TickAnimationEvent {
             var animationStateMachine = gunIndex.getAnimationStateMachine();
             animationStateMachine.processContextIfExist(context -> {
                 context.setCurrentGunItem(mainhandItem);
-                context.setPartialTicks(Minecraft.getInstance().getFrameTime());
+                context.setPartialTicks(MinecraftHelper.getFrameTime());
             });
             animationStateMachine.visualUpdate();
         });

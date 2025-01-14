@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 这里不包含枪械的逻辑，只包含枪械的各种 nbt 访问。<br>
@@ -214,6 +216,8 @@ public interface IGun {
      */
     @Nonnull
     ItemStack getAttachment(ItemStack gun, AttachmentType type);
+
+    void getAttachmentTagAndWrite(ItemStack gun, AttachmentType type, Consumer<CompoundTag> attachmentWriter);
 
     @Nonnull
     ItemStack getBuiltinAttachment(ItemStack gun, AttachmentType type);

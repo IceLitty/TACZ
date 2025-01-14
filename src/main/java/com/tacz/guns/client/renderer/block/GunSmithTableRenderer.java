@@ -13,15 +13,18 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.client.extensions.IBlockEntityRendererExtension;
 
 import java.util.Optional;
 
-public class GunSmithTableRenderer implements BlockEntityRenderer<GunSmithTableBlockEntity> {
+public class GunSmithTableRenderer implements BlockEntityRenderer<GunSmithTableBlockEntity>, IBlockEntityRendererExtension<GunSmithTableBlockEntity> {
     public GunSmithTableRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -73,4 +76,11 @@ public class GunSmithTableRenderer implements BlockEntityRenderer<GunSmithTableB
     public boolean shouldRenderOffScreen(GunSmithTableBlockEntity blockEntity) {
         return true;
     }
+
+    @Override
+    public AABB getRenderBoundingBox(GunSmithTableBlockEntity blockEntity) {
+        BlockPos worldPosition = blockEntity.getBlockPos();
+        return new AABB(worldPosition.offset(-2, 0, -2).getCenter(), worldPosition.offset(2, 1, 2).getCenter());
+    }
+
 }

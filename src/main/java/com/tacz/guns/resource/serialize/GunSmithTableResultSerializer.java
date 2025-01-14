@@ -5,12 +5,12 @@ import com.tacz.guns.crafting.result.GunSmithTableResult;
 import com.tacz.guns.crafting.result.RawGunTableResult;
 import com.tacz.guns.resource.CommonAssetsManager;
 import com.tacz.guns.resource.pojo.data.recipe.GunResult;
+import com.tacz.guns.util.helper.CraftingHelper;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Type;
@@ -53,13 +53,7 @@ public class GunSmithTableResultSerializer implements JsonDeserializer<GunSmithT
                     ItemStack itemStack = CraftingHelper.getItemStack(resultObject, true);
                     result = new GunSmithTableResult(itemStack, group);
                     if (extraTag != null) {
-                        CompoundTag itemTag = result.getResult().getOrCreateTag();
-                        for (String key : extraTag.getAllKeys()) {
-                            Tag tag = extraTag.get(key);
-                            if (tag != null) {
-                                itemTag.put(key, tag);
-                            }
-                        }
+                        NBTHelper.setCustomTagToItemStack(result.getResult(), extraTag);
                     }
                 }
                 default -> {
@@ -72,6 +66,6 @@ public class GunSmithTableResultSerializer implements JsonDeserializer<GunSmithT
     }
 
     private ResourceLocation getId(JsonObject jsonObject) {
-        return new ResourceLocation(GsonHelper.getAsString(jsonObject, "id"));
+        return ResourceLocation.parse(GsonHelper.getAsString(jsonObject, "id"));
     }
 }

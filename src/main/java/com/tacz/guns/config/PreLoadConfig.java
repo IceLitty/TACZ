@@ -1,20 +1,27 @@
 package com.tacz.guns.config;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ConfigTracker;
-import net.minecraftforge.fml.config.IConfigEvent;
-import net.minecraftforge.fml.config.ModConfig;
+import com.tacz.guns.GunMod;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.IConfigSpec;
+import net.neoforged.fml.config.ModConfigs;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.ConfigTracker;
+//import net.neoforged.fml.config.IConfigEvent;
+import net.neoforged.fml.config.ModConfig;
 
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class PreLoadConfig {
-    private static ForgeConfigSpec spec;
-    public static ForgeConfigSpec.BooleanValue override;
+    private static ModConfigSpec spec;
+    public static ModConfigSpec.BooleanValue override;
 
     static {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         builder.push("gunpack");
         builder.comment("When enabled, the mod will not try to overwrite the default pack under .minecraft/tacz\n" +
                 "Since 1.0.4, the overwriting will only run when you start client or a dedicated server");
@@ -23,21 +30,22 @@ public class PreLoadConfig {
         spec = builder.build();
     }
 
-    public static PreLoadModConfig getModConfig() {
-        ModLoadingContext ctx = ModLoadingContext.get();
-        var c = new PreLoadModConfig(ModConfig.Type.COMMON, spec, ctx.getActiveContainer(), "tacz-pre.toml");
-        // 从 ConfigTracker 中移除，防止从默认文件夹重复加载
-        ConfigTracker.INSTANCE.configSets().get(ModConfig.Type.COMMON).remove(c);
-        ConfigTracker.INSTANCE.fileMap().remove(c.getFileName(), c);
-        return c;
-    }
+//    public static PreLoadModConfig getModConfig() {
+//        ModLoadingContext ctx = ModLoadingContext.get();
+//        var c = new PreLoadModConfig(ModConfig.Type.COMMON, spec, ctx.getActiveContainer(), "tacz-pre.toml");
+//        // 从 ConfigTracker 中移除，防止从默认文件夹重复加载
+//        ConfigTracker.INSTANCE.configSets().get(ModConfig.Type.COMMON).remove(c);
+//        ConfigTracker.INSTANCE.fileMap().remove(c.getFileName(), c);
+//        return c;
+//    }
 
     public static void load(Path configBasePath) {
         if (spec.isLoaded()) return;
-        PreLoadModConfig config = getModConfig();
-        final CommentedFileConfig configData = config.getHandler().reader(configBasePath).apply(config);
-        config.setConfigData(configData);
-        config.fireEvent(IConfigEvent.loading(config));
-        config.save();
+//        ConfigTracker.INSTANCE.registerConfig(ModConfig.Type.COMMON, spec, GunMod.INSTANCE.MOD_CONTAINER, "tacz-pre.toml");
+//        PreLoadModConfig config = getModConfig();
+//        final CommentedFileConfig configData = config.getHandler().reader(configBasePath).apply(config);
+//        config.setConfigData(configData);
+//        config.fireEvent(IConfigEvent.loading(config));
+//        config.save();
     }
 }

@@ -1,11 +1,14 @@
 package com.tacz.guns.block;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tacz.guns.block.entity.TargetBlockEntity;
 import com.tacz.guns.entity.EntityKineticBullet;
 import com.tacz.guns.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -23,6 +26,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -35,6 +39,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public class TargetBlock extends BaseEntityBlock {
     public static final IntegerProperty OUTPUT_POWER = BlockStateProperties.POWER;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -45,10 +51,22 @@ public class TargetBlock extends BaseEntityBlock {
     public static final VoxelShape BOX_BOTTOM_DOWN = Block.box(6, 0, 6, 10, 4, 10);
     public static final VoxelShape BOX_UPPER_X = Block.box(6, 0, 2, 10, 16, 14);
     public static final VoxelShape BOX_UPPER_Z = Block.box(2, 0, 6, 14, 16, 10);
+    public static final MapCodec<TargetBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec()
+    ).apply(instance, TargetBlock::new));
 
-    public TargetBlock() {
-        super(Properties.of().sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
+    public TargetBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER).setValue(STAND, true).setValue(OUTPUT_POWER, 0));
+    }
+
+    public static BlockBehaviour.Properties getDefaultProperties() {
+        return Properties.of().sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion();
+    }
+
+    @Override
+    protected MapCodec<TargetBlock> codec() {
+        return CODEC;
     }
 
     public static int getRedstoneStrength(BlockHitResult hit, boolean isUpperBlock) {
@@ -181,10 +199,10 @@ public class TargetBlock extends BaseEntityBlock {
             world.setBlock(above, state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
             world.blockUpdated(pos, Blocks.AIR);
             state.updateNeighbourShapes(world, pos, Block.UPDATE_ALL);
-            if (stack.hasCustomHoverName()) {
+            if (stack.has(DataComponents.CUSTOM_NAME)) {
                 BlockEntity blockentity = world.getBlockEntity(pos);
                 if (blockentity instanceof TargetBlockEntity e) {
-                    GameProfile gameprofile = new GameProfile(null, stack.getHoverName().getString());
+                    GameProfile gameprofile = new GameProfile(UUID.randomUUID(), stack.getHoverName().getString());
                     e.setOwner(gameprofile);
                     e.setCustomName(stack.getHoverName());
                     e.refresh();
@@ -194,11 +212,13 @@ public class TargetBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         BlockPos blockPos = state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below();
         BlockEntity blockentity = level.getBlockEntity(blockPos);
         if (blockentity instanceof TargetBlockEntity e) {
-            return new ItemStack(this).setHoverName(e.getCustomName());
+            ItemStack itemStack = new ItemStack(this);
+            itemStack.set(DataComponents.CUSTOM_NAME, e.getCustomName());
+            return itemStack;
         }
         return super.getCloneItemStack(state, target, level, pos, player);
     }

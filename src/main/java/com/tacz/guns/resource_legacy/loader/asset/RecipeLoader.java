@@ -41,7 +41,7 @@ public final class RecipeLoader {
                 return false;
             }
             try (InputStream stream = zipFile.getInputStream(entry)) {
-                ResourceLocation registryName = new ResourceLocation(namespace, path);
+                ResourceLocation registryName = ResourceLocation.fromNamespaceAndPath(namespace, path);
                 String json = IOUtils.toString(stream, StandardCharsets.UTF_8);
                 loadFromJsonString(registryName, json);
                 CommonGunPackNetwork.addData(DataType.RECIPES, registryName, json);

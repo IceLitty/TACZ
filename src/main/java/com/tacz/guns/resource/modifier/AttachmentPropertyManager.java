@@ -12,7 +12,7 @@ import com.tacz.guns.resource.modifier.custom.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import org.apache.commons.lang3.StringUtils;
 import org.luaj.vm2.script.LuaScriptEngineFactory;
 
@@ -58,7 +58,7 @@ public class AttachmentPropertyManager {
         ResourceLocation gunId = iGun.getGunId(gunItem);
         TimelessAPI.getCommonGunIndex(gunId).ifPresent(index -> {
             AttachmentCacheProperty cacheProperty = new AttachmentCacheProperty();
-            MinecraftForge.EVENT_BUS.post(new AttachmentPropertyEvent(gunItem, cacheProperty));
+            NeoForge.EVENT_BUS.post(new AttachmentPropertyEvent(gunItem, cacheProperty));
             IGunOperator.fromLivingEntity(shooter).updateCacheProperty(cacheProperty);
         });
     }

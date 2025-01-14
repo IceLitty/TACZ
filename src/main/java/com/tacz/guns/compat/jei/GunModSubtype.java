@@ -4,49 +4,80 @@ import com.tacz.guns.api.item.IAmmo;
 import com.tacz.guns.api.item.IAmmoBox;
 import com.tacz.guns.api.item.IAttachment;
 import com.tacz.guns.api.item.IGun;
-import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class GunModSubtype {
-    public static IIngredientSubtypeInterpreter<ItemStack> getAmmoSubtype() {
-        return (stack, context) -> {
-            if (stack.getItem() instanceof IAmmo iAmmo) {
-                return iAmmo.getAmmoId(stack).toString();
-            }
-            return IIngredientSubtypeInterpreter.NONE;
-        };
-    }
 
-    public static IIngredientSubtypeInterpreter<ItemStack> getGunSubtype() {
-        return (stack, context) -> {
-            if (stack.getItem() instanceof IGun iGun) {
-                return iGun.getGunId(stack).toString();
-            }
-            return IIngredientSubtypeInterpreter.NONE;
-        };
-    }
-
-    public static IIngredientSubtypeInterpreter<ItemStack> getAttachmentSubtype() {
-        return (stack, context) -> {
-            if (stack.getItem() instanceof IAttachment iAttachment) {
-                return iAttachment.getAttachmentId(stack).toString();
-            }
-            return IIngredientSubtypeInterpreter.NONE;
-        };
-    }
-
-    public static IIngredientSubtypeInterpreter<ItemStack> getAmmoBoxSubtype() {
-        return (stack, context) -> {
-            if (stack.getItem() instanceof IAmmoBox iAmmoBox) {
-                if (iAmmoBox.isAllTypeCreative(stack)) {
-                    return "all_type_creative";
+    public static ISubtypeInterpreter<ItemStack> getAmmoSubtype() {
+        return new ISubtypeInterpreter<>() {
+            @Override
+            public @Nullable Object getSubtypeData(ItemStack stack, UidContext context) {
+                if (stack.getItem() instanceof IAmmo iAmmo) {
+                    return iAmmo.getAmmoId(stack).toString();
                 }
-                if (iAmmoBox.isCreative(stack)) {
-                    return "creative";
-                }
-                return String.format("level_%d", iAmmoBox.getAmmoLevel(stack));
+                return "";
             }
-            return IIngredientSubtypeInterpreter.NONE;
+            @Override
+            public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+                return null;
+            }
+        };
+    }
+
+    public static ISubtypeInterpreter<ItemStack> getGunSubtype() {
+        return new ISubtypeInterpreter<>() {
+            @Override
+            public @Nullable Object getSubtypeData(ItemStack stack, UidContext context) {
+                if (stack.getItem() instanceof IGun iGun) {
+                    return iGun.getGunId(stack).toString();
+                }
+                return "";
+            }
+            @Override
+            public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+                return null;
+            }
+        };
+    }
+
+    public static ISubtypeInterpreter<ItemStack> getAttachmentSubtype() {
+        return new ISubtypeInterpreter<>() {
+            @Override
+            public @Nullable Object getSubtypeData(ItemStack stack, UidContext context) {
+                if (stack.getItem() instanceof IAttachment iAttachment) {
+                    return iAttachment.getAttachmentId(stack).toString();
+                }
+                return "";
+            }
+            @Override
+            public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+                return null;
+            }
+        };
+    }
+
+    public static ISubtypeInterpreter<ItemStack> getAmmoBoxSubtype() {
+        return new ISubtypeInterpreter<>() {
+            @Override
+            public @Nullable Object getSubtypeData(ItemStack stack, UidContext context) {
+                if (stack.getItem() instanceof IAmmoBox iAmmoBox) {
+                    if (iAmmoBox.isAllTypeCreative(stack)) {
+                        return "all_type_creative";
+                    }
+                    if (iAmmoBox.isCreative(stack)) {
+                        return "creative";
+                    }
+                    return String.format("level_%d", iAmmoBox.getAmmoLevel(stack));
+                }
+                return "";
+            }
+            @Override
+            public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
+                return null;
+            }
         };
     }
 }

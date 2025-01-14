@@ -1,5 +1,7 @@
 package com.tacz.guns.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.tacz.guns.api.item.IGun;
 import com.tacz.guns.block.entity.StatueBlockEntity;
 import com.tacz.guns.init.ModBlocks;
@@ -7,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +21,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,13 +35,25 @@ import org.jetbrains.annotations.Nullable;
 public class StatueBlock extends BaseEntityBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final MapCodec<StatueBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec()
+    ).apply(instance, StatueBlock::new));
 
-    public StatueBlock() {
-        super(Properties.of().sound(SoundType.STONE).strength(2.0F, 3.0F).noOcclusion());
+    public StatueBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(HALF, DoubleBlockHalf.LOWER)
                 .setValue(FACING, Direction.NORTH)
         );
+    }
+
+    public static BlockBehaviour.Properties getDefaultProperties() {
+        return Properties.of().sound(SoundType.STONE).strength(2.0F, 3.0F).noOcclusion();
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
@@ -58,29 +74,44 @@ public class StatueBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level level, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHit) {
+    protected InteractionResult useWithoutItem(BlockState pState, Level level, BlockPos pos, Player player, BlockHitResult pHitResult) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         } else {
             if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
                 pos = pos.below();
             }
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof StatueBlockEntity statueBlockEntity) {
+                statueBlockEntity.dropItem();
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.CONSUME;
+        }
+    }
 
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level level, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHitResult) {
+        if (level.isClientSide()) {
+            return ItemInteractionResult.SUCCESS;
+        } else {
+            if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+                pos = pos.below();
+            }
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StatueBlockEntity statueBlockEntity) {
                 ItemStack stack = player.getItemInHand(pHand);
                 if (stack.getItem() instanceof IGun) {
                     statueBlockEntity.setGun(stack);
                     stack.shrink(1);
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
-
                 if (stack.isEmpty()) {
                     statueBlockEntity.dropItem();
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
             }
-            return InteractionResult.CONSUME;
+            return ItemInteractionResult.CONSUME;
         }
     }
 

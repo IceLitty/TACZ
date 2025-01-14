@@ -1,6 +1,7 @@
 package com.tacz.guns.item;
 
 import com.google.common.base.Suppliers;
+import com.tacz.guns.GunMod;
 import com.tacz.guns.api.DefaultAssets;
 import com.tacz.guns.api.TimelessAPI;
 import com.tacz.guns.api.entity.ReloadState;
@@ -15,7 +16,11 @@ import com.tacz.guns.resource.index.CommonGunIndex;
 import com.tacz.guns.resource.pojo.data.attachment.EffectData;
 import com.tacz.guns.resource.pojo.data.attachment.MeleeData;
 import com.tacz.guns.resource.pojo.data.gun.*;
+import com.tacz.guns.util.helper.EntityHelper;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -26,7 +31,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaValue;
@@ -37,7 +41,6 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.DoubleFunction;
 import java.util.function.Supplier;
 
@@ -48,8 +51,8 @@ public class ModernKineticGunItem extends AbstractGunItem implements GunItemData
     public static final String TYPE_NAME = "modern_kinetic";
 
     private static final DoubleFunction<AttributeModifier> AM_FACTORY = amount -> new AttributeModifier(
-            UUID.randomUUID(), "TACZ Melee Damage",
-            amount, AttributeModifier.Operation.ADDITION
+            ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "tacz_melee_damage"),
+            amount, AttributeModifier.Operation.ADD_VALUE
     );
 
     public ModernKineticGunItem() {
@@ -375,20 +378,23 @@ public class ModernKineticGunItem extends AbstractGunItem implements GunItemData
             target.hurt(user.damageSources().mobAttack(user), damage);
         }
         // 修复近战枪械不触发神化词条/宝石的bug
-        user.doEnchantDamageEffects(user, target);
+        EntityHelper.doEnchantDamageEffects(user, target);
 
         if (!target.isAlive()) {
             return;
         }
         for (EffectData data : effects) {
-            MobEffect mobEffect = ForgeRegistries.MOB_EFFECTS.getValue(data.getEffectId());
-            if (mobEffect == null) {
+            MobEffect _mobEffect = BuiltInRegistries.MOB_EFFECT.get(data.getEffectId());
+            if (_mobEffect == null) {
                 continue;
             }
-            int time = Math.max(0, data.getTime() * 20);
-            int amplifier = Math.max(0, data.getAmplifier());
-            MobEffectInstance effectInstance = new MobEffectInstance(mobEffect, time, amplifier, false, data.isHideParticles());
-            target.addEffect(effectInstance);
+            BuiltInRegistries.MOB_EFFECT.getResourceKey(_mobEffect).ifPresent(key -> {
+                Holder.Reference<MobEffect> mobEffect = BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(key);
+                int time = Math.max(0, data.getTime() * 20);
+                int amplifier = Math.max(0, data.getAmplifier());
+                MobEffectInstance effectInstance = new MobEffectInstance(mobEffect, time, amplifier, false, data.isHideParticles());
+                target.addEffect(effectInstance);
+            });
         }
         if (user.level() instanceof ServerLevel serverLevel) {
             int count = (int) (damage * 0.5);

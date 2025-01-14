@@ -1,5 +1,7 @@
 package com.tacz.guns.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,18 +26,24 @@ import org.jetbrains.annotations.Nullable;
  */
 public class GunSmithTableBlockC extends AbstractGunSmithTableBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final MapCodec<GunSmithTableBlockC> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec()
+    ).apply(instance, GunSmithTableBlockC::new));
 
-    public GunSmithTableBlockC() {
-        super();
+    public GunSmithTableBlockC(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
+    @Override
+    protected MapCodec<GunSmithTableBlockC> codec() {
+        return CODEC;
+    }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, HALF);
     }
-
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -76,7 +85,7 @@ public class GunSmithTableBlockC extends AbstractGunSmithTableBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
         // 用于抑制创造模式下摧毁upper方块时lower的掉落
         if (!level.isClientSide && player.isCreative()) {
             DoubleBlockHalf half = blockState.getValue(HALF);
@@ -88,8 +97,9 @@ public class GunSmithTableBlockC extends AbstractGunSmithTableBlock {
                     level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockpos, Block.getId(blockstate));
                 }
             }
+            return blockState;
         }
-        super.playerWillDestroy(level, pos, blockState, player);
+        return super.playerWillDestroy(level, pos, blockState, player);
     }
 
     @Override

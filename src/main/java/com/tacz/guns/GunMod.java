@@ -8,13 +8,11 @@ import com.tacz.guns.init.*;
 import com.tacz.guns.resource.GunPackLoader;
 import com.tacz.guns.resource.modifier.AttachmentPropertyManager;
 import net.minecraft.server.packs.PackType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,16 +24,19 @@ public class GunMod {
      * 默认模型包文件夹
      */
     public static final String DEFAULT_GUN_PACK_NAME = "tacz_default_gun";
+    public static GunMod INSTANCE;
+    public final net.neoforged.fml.ModContainer MOD_CONTAINER;
 
-    public GunMod() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.init());
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.init());
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.init());
+    public GunMod(net.neoforged.fml.ModContainer modContainer, IEventBus bus) {
+        INSTANCE = this;
+        MOD_CONTAINER = modContainer;
+        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.init());
+        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.init());
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.init());
 
         Dist side = FMLLoader.getDist();
         GunPackLoader.INSTANCE.packType = side.isClient() ? PackType.CLIENT_RESOURCES : PackType.SERVER_DATA;
 
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.BLOCKS.register(bus);
         ModBlocks.TILE_ENTITIES.register(bus);
         ModCreativeTabs.TABS.register(bus);
@@ -47,6 +48,8 @@ public class GunMod {
         ModSounds.SOUNDS.register(bus);
         ModParticles.PARTICLE_TYPES.register(bus);
         ModAttributes.ATTRIBUTES.register(bus);
+        ModAttachment.ATTACHMENT_TYPES.register(bus);
+        ModComponents.REGISTRAR.register(bus);
 
         registerDefaultExtraGunPack();
         AttachmentPropertyManager.registerModifier();

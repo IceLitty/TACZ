@@ -43,10 +43,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RenderHandEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -61,7 +61,7 @@ import static net.minecraft.world.item.ItemDisplayContext.FIRST_PERSON_RIGHT_HAN
 /**
  * 负责第一人称的枪械模型渲染。其他人称参见 {@link GunItemRenderer}
  */
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = GunMod.MOD_ID)
+@EventBusSubscriber(modid = GunMod.MOD_ID, value = Dist.CLIENT)
 public class FirstPersonRenderGunEvent {
     // 用于生成瞄准动作的运动曲线，使动作看起来更平滑
     private static final SecondOrderDynamics AIMING_DYNAMICS = new SecondOrderDynamics(1.2f, 1.2f, 0.5f, 0);
@@ -375,7 +375,7 @@ public class FirstPersonRenderGunEvent {
         MathUtil.applyMatrixLerp(transformMatrix, getPositioningNodeInverse(toNode), transformMatrix, refitScreenOpeningProgress * refitTransformProgress);
         // 应用变换到 PoseStack
         poseStack.translate(0, 1.5f, 0);
-        poseStack.mulPoseMatrix(transformMatrix);
+        poseStack.mulPose(transformMatrix);
         poseStack.translate(0, -1.5f, 0);
     }
 

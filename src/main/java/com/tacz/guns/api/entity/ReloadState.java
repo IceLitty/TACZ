@@ -24,6 +24,11 @@ public class ReloadState {
         countDown = src.countDown;
     }
 
+    public ReloadState(ReloadState.StateType stateType, long countDown) {
+        this.stateType = stateType;
+        this.countDown = countDown;
+    }
+
     /**
      * @return 返回当前的换弹状态的类型。可用于判断是否正在进行换弹、换弹处在的阶段等。
      */

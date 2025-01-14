@@ -12,8 +12,7 @@ import com.tacz.guns.init.ModItems;
 import com.tacz.guns.inventory.tooltip.AmmoBoxTooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -26,23 +25,20 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class AmmoBoxItem extends Item implements DyeableLeatherItem, AmmoBoxItemDataAccessor {
-    public static final ResourceLocation PROPERTY_NAME = new ResourceLocation(GunMod.MOD_ID, "ammo_statue");
+public class AmmoBoxItem extends Item implements AmmoBoxItemDataAccessor {
+    public static final ResourceLocation PROPERTY_NAME = ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "ammo_statue");
 
     public static final int IRON_LEVEL = 0;
     public static final int GOLD_LEVEL = 1;
     public static final int DIAMOND_LEVEL = 2;
-
-    private static final String DISPLAY_TAG = "display";
-    private static final String COLOR_TAG = "color";
 
     private static final int OPEN = 0;
     private static final int CLOSE = 1;
@@ -90,8 +86,12 @@ public class AmmoBoxItem extends Item implements DyeableLeatherItem, AmmoBoxItem
     }
 
     private static int getTagColor(ItemStack stack) {
-        CompoundTag compoundtag = stack.getTagElement(DISPLAY_TAG);
-        return compoundtag != null && compoundtag.contains(COLOR_TAG, Tag.TAG_ANY_NUMERIC) ? compoundtag.getInt(COLOR_TAG) : 0x727d6b;
+        int defaultColor = 0x727d6b;
+        DyedItemColor dyedItemColor;
+        if (stack.has(DataComponents.DYED_COLOR) && (dyedItemColor = stack.get(DataComponents.DYED_COLOR)) != null) {
+            defaultColor = dyedItemColor.rgb();
+        }
+        return defaultColor;
     }
 
     @Override
@@ -270,7 +270,7 @@ public class AmmoBoxItem extends Item implements DyeableLeatherItem, AmmoBoxItem
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> components, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> components, TooltipFlag isAdvanced) {
         if (isAllTypeCreative(stack)) {
             components.add(Component.translatable("tooltip.tacz.ammo_box.usage.all_type_creative").withStyle(ChatFormatting.GOLD));
             return;

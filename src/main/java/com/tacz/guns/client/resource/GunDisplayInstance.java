@@ -22,13 +22,21 @@ import com.tacz.guns.client.resource.pojo.model.BedrockModelPOJO;
 import com.tacz.guns.client.resource.pojo.model.BedrockVersion;
 import com.tacz.guns.sound.SoundManager;
 import com.tacz.guns.util.ColorHex;
+import com.tacz.guns.util.helper.ParticleOptionsHelper;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.commands.arguments.ParticleArgument;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.IdMap;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
@@ -38,6 +46,8 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * 经过处理和校验的枪械显示数据
@@ -49,7 +59,7 @@ public class GunDisplayInstance {
     private @Nullable Pair<BedrockGunModel, ResourceLocation> lodModel;
     private LuaAnimationStateMachine<GunAnimationStateContext> animationStateMachine;
     private @Nullable LuaTable stateMachineParam;
-    private @Nullable ResourceLocation playerAnimator3rd = new ResourceLocation(GunMod.MOD_ID, "rifle_default.player_animation");
+    private @Nullable ResourceLocation playerAnimator3rd = ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "rifle_default.player_animation");
     private Map<String, ResourceLocation> sounds;
     private GunTransform transform;
     private ResourceLocation modelTexture;
@@ -206,7 +216,7 @@ public class GunDisplayInstance {
         ResourceLocation stateMachineLocation = display.getStateMachineLocation();
         if (stateMachineLocation == null) {
             // 如果没指定状态机，则使用默认状态机
-            stateMachineLocation = new ResourceLocation("tacz", "default_state_machine");
+            stateMachineLocation = ResourceLocation.fromNamespaceAndPath("tacz", "default_state_machine");
         }
         LuaTable script = ClientAssetsManager.INSTANCE.getScript(stateMachineLocation);
         if (script != null) {
@@ -242,14 +252,14 @@ public class GunDisplayInstance {
             return;
         }
         // 部分音效为默认音效，不存在则需要添加默认音效
-        soundMaps.putIfAbsent(SoundManager.DRY_FIRE_SOUND, new ResourceLocation(GunMod.MOD_ID, SoundManager.DRY_FIRE_SOUND));
-        soundMaps.putIfAbsent(SoundManager.FIRE_SELECT, new ResourceLocation(GunMod.MOD_ID, SoundManager.FIRE_SELECT));
-        soundMaps.putIfAbsent(SoundManager.HEAD_HIT_SOUND, new ResourceLocation(GunMod.MOD_ID, SoundManager.HEAD_HIT_SOUND));
-        soundMaps.putIfAbsent(SoundManager.FLESH_HIT_SOUND, new ResourceLocation(GunMod.MOD_ID, SoundManager.FLESH_HIT_SOUND));
-        soundMaps.putIfAbsent(SoundManager.KILL_SOUND, new ResourceLocation(GunMod.MOD_ID, SoundManager.KILL_SOUND));
-        soundMaps.putIfAbsent(SoundManager.MELEE_BAYONET, new ResourceLocation(GunMod.MOD_ID, "melee_bayonet/melee_bayonet_01"));
-        soundMaps.putIfAbsent(SoundManager.MELEE_STOCK, new ResourceLocation(GunMod.MOD_ID, "melee_stock/melee_stock_01"));
-        soundMaps.putIfAbsent(SoundManager.MELEE_PUSH, new ResourceLocation(GunMod.MOD_ID, "melee_stock/melee_stock_02"));
+        soundMaps.putIfAbsent(SoundManager.DRY_FIRE_SOUND, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, SoundManager.DRY_FIRE_SOUND));
+        soundMaps.putIfAbsent(SoundManager.FIRE_SELECT, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, SoundManager.FIRE_SELECT));
+        soundMaps.putIfAbsent(SoundManager.HEAD_HIT_SOUND, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, SoundManager.HEAD_HIT_SOUND));
+        soundMaps.putIfAbsent(SoundManager.FLESH_HIT_SOUND, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, SoundManager.FLESH_HIT_SOUND));
+        soundMaps.putIfAbsent(SoundManager.KILL_SOUND, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, SoundManager.KILL_SOUND));
+        soundMaps.putIfAbsent(SoundManager.MELEE_BAYONET, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "melee_bayonet/melee_bayonet_01"));
+        soundMaps.putIfAbsent(SoundManager.MELEE_STOCK, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "melee_stock/melee_stock_01"));
+        soundMaps.putIfAbsent(SoundManager.MELEE_PUSH, ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "melee_stock/melee_stock_02"));
         sounds.putAll(soundMaps);
     }
 
@@ -290,7 +300,7 @@ public class GunDisplayInstance {
             try {
                 String name = particle.getName();
                 if (StringUtils.isNoneBlank()) {
-                    particle.setParticleOptions(ParticleArgument.readParticle(new StringReader(name), BuiltInRegistries.PARTICLE_TYPE.asLookup()));
+                    particle.setParticleOptions(ParticleArgument.readParticle(new StringReader(name), ParticleOptionsHelper.getParticleTypesProvider()));
                     Preconditions.checkArgument(particle.getCount() > 0, "particle count must be greater than 0");
                     Preconditions.checkArgument(particle.getLifeTime() > 0, "particle life time must be greater than 0");
                     this.particle = particle;

@@ -15,8 +15,9 @@ import com.tacz.guns.resource.modifier.AttachmentPropertyManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.LogicalSide;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -50,8 +51,8 @@ public class LocalPlayerDraw {
         if (Minecraft.getInstance().gameMode != null) {
             Minecraft.getInstance().gameMode.ensureHasSentCarriedItem();
         }
-        NetworkHandler.CHANNEL.sendToServer(new ClientMessagePlayerDrawGun());
-        MinecraftForge.EVENT_BUS.post(new GunDrawEvent(player, lastItem, currentItem, LogicalSide.CLIENT));
+        PacketDistributor.sendToServer(new ClientMessagePlayerDrawGun());
+        NeoForge.EVENT_BUS.post(new GunDrawEvent(player, lastItem, currentItem, LogicalSide.CLIENT));
 
         // 不处于收枪状态时才能收枪
         if (drawTime >= 0) {

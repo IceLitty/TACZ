@@ -18,8 +18,9 @@ import com.tacz.guns.resource.pojo.data.gun.GunData;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.LogicalSide;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LocalPlayerReload {
     private final LocalPlayerDataHolder data;
@@ -44,7 +45,7 @@ public class LocalPlayerReload {
                 return;
             }
             // 发包通知服务器
-            NetworkHandler.CHANNEL.sendToServer(new ClientMessagePlayerCancelReload());
+            PacketDistributor.sendToServer(new ClientMessagePlayerCancelReload());
             // 执行本地取消换弹逻辑
             this.cancelReload(display);
         });
@@ -74,11 +75,11 @@ public class LocalPlayerReload {
             // 锁上状态锁
             data.lockState(operator -> operator.getSynReloadState().getStateType().isReloading());
             // 触发换弹事件
-            if (MinecraftForge.EVENT_BUS.post(new GunReloadEvent(player, player.getMainHandItem(), LogicalSide.CLIENT))) {
+            if (NeoForge.EVENT_BUS.post(new GunReloadEvent(player, player.getMainHandItem(), LogicalSide.CLIENT)).isCanceled()) {
                 return;
             }
             // 发包通知服务器
-            NetworkHandler.CHANNEL.sendToServer(new ClientMessagePlayerReloadGun());
+            PacketDistributor.sendToServer(new ClientMessagePlayerReloadGun());
             // 执行客户端 reload 相关内容
             this.doReload(gunItem, display, gunData, mainhandItem);
         });

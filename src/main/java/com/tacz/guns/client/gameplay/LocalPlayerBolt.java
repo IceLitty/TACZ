@@ -13,6 +13,7 @@ import com.tacz.guns.resource.pojo.data.gun.Bolt;
 import com.tacz.guns.resource.pojo.data.gun.GunData;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class LocalPlayerBolt {
     private final LocalPlayerDataHolder data;
@@ -58,7 +59,7 @@ public class LocalPlayerBolt {
             data.lockState(IGunOperator::getSynIsBolting);
             data.isBolting = true;
             // 发包通知服务器
-            NetworkHandler.CHANNEL.sendToServer(new ClientMessagePlayerBoltGun());
+            PacketDistributor.sendToServer(new ClientMessagePlayerBoltGun());
             // 播放动画和音效
             AnimationStateMachine<?> animationStateMachine = display.getAnimationStateMachine();
             if (animationStateMachine != null) {

@@ -83,12 +83,12 @@ public final class HitboxHelper {
     public static AABB getFixedBoundingBox(Entity entity, Entity owner) {
         AABB boundingBox = entity.getBoundingBox();
         Vec3 velocity = new Vec3(entity.getX() - entity.xOld, entity.getY() - entity.yOld, entity.getZ() - entity.zOld);
-        // hitbox 延迟补偿。只有射击者是玩家（且被击中者也是玩家）才进行此类延迟补偿计算
-        if (OtherConfig.SERVER_HITBOX_LATENCY_FIX.get() && entity instanceof ServerPlayer player && owner instanceof ServerPlayer serverPlayerOwner) {
-            int ping = Mth.floor((serverPlayerOwner.latency / 1000.0) * 20.0 + 0.5);
-            boundingBox = getBoundingBox(player, ping);
-            velocity = getVelocity(player, ping);
-        }
+//        // hitbox 延迟补偿。只有射击者是玩家（且被击中者也是玩家）才进行此类延迟补偿计算
+//        if (OtherConfig.SERVER_HITBOX_LATENCY_FIX.get() && entity instanceof ServerPlayer player && owner instanceof ServerPlayer serverPlayerOwner) {
+//            int ping = Mth.floor((serverPlayerOwner.latency / 1000.0) * 20.0 + 0.5);
+//            boundingBox = getBoundingBox(player, ping);
+//            velocity = getVelocity(player, ping);
+//        }
         // 应用蹲伏导致的 hitbox 变形
         double expandHeight = entity instanceof Player && !entity.isCrouching() ? 0.0625 : 0.0;
         boundingBox = boundingBox.expandTowards(0, expandHeight, 0);

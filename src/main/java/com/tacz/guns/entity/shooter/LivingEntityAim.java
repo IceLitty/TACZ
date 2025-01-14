@@ -10,6 +10,7 @@ import com.tacz.guns.api.item.nbt.AttachmentItemDataAccessor;
 import com.tacz.guns.resource.index.CommonGunIndex;
 import com.tacz.guns.resource.modifier.custom.AdsModifier;
 import com.tacz.guns.resource.pojo.data.gun.GunData;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,16 +40,17 @@ public class LivingEntityAim {
             return;
         }
         ResourceLocation scopeId = iGun.getAttachmentId(currentGunItem, AttachmentType.SCOPE);
-        CompoundTag scopeTag = iGun.getAttachmentTag(currentGunItem, AttachmentType.SCOPE);
-        if (!DefaultAssets.isEmptyAttachmentId(scopeId) && scopeTag != null) {
-            TimelessAPI.getCommonAttachmentIndex(scopeId).ifPresent(index -> {
-                int zoomNumber = AttachmentItemDataAccessor.getZoomNumberFromTag(scopeTag);
-                ++zoomNumber;
-                // 避免上溢变成负的
-                zoomNumber = zoomNumber % (Integer.MAX_VALUE - 1);
-                AttachmentItemDataAccessor.setZoomNumberToTag(scopeTag, zoomNumber);
-            });
-        }
+        iGun.getAttachmentTagAndWrite(currentGunItem, AttachmentType.SCOPE, scopeTag -> {
+            if (!DefaultAssets.isEmptyAttachmentId(scopeId) && scopeTag != null) {
+                TimelessAPI.getCommonAttachmentIndex(scopeId).ifPresent(index -> {
+                    int zoomNumber = AttachmentItemDataAccessor.getZoomNumberFromTag(scopeTag);
+                    ++zoomNumber;
+                    // 避免上溢变成负的
+                    zoomNumber = zoomNumber % (Integer.MAX_VALUE - 1);
+                    AttachmentItemDataAccessor.setZoomNumberToTag(scopeTag, zoomNumber);
+                });
+            }
+        });
     }
 
     public void tickAimingProgress() {

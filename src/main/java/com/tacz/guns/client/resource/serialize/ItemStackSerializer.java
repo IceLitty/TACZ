@@ -1,8 +1,8 @@
 package com.tacz.guns.client.resource.serialize;
 
 import com.google.gson.*;
+import com.tacz.guns.util.helper.CraftingHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.lang.reflect.Type;
 

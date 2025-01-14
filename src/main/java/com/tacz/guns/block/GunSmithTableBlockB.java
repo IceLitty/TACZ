@@ -1,5 +1,7 @@
 package com.tacz.guns.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BedPart;
@@ -23,10 +26,18 @@ import org.jetbrains.annotations.Nullable;
  */
 public class GunSmithTableBlockB extends AbstractGunSmithTableBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    public static final MapCodec<GunSmithTableBlockB> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockBehaviour.propertiesCodec()
+    ).apply(instance, GunSmithTableBlockB::new));
 
-    public GunSmithTableBlockB() {
-        super();
+    public GunSmithTableBlockB(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, BedPart.FOOT));
+    }
+
+    @Override
+    protected MapCodec<GunSmithTableBlockB> codec() {
+        return CODEC;
     }
 
     private static Direction getNeighbourDirection(BedPart bedPart, Direction direction) {
@@ -63,7 +74,7 @@ public class GunSmithTableBlockB extends AbstractGunSmithTableBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState blockState, Player player) {
         // 用于抑制创造模式下摧毁head方块时foot的掉落
         if (!level.isClientSide && player.isCreative()) {
             BedPart bedPart = blockState.getValue(PART);
@@ -75,8 +86,9 @@ public class GunSmithTableBlockB extends AbstractGunSmithTableBlock {
                     level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, blockpos, Block.getId(blockstate));
                 }
             }
+            return blockState;
         }
-        super.playerWillDestroy(level, pos, blockState, player);
+        return super.playerWillDestroy(level, pos, blockState, player);
     }
 
     @Override

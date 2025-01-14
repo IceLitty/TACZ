@@ -1,73 +1,138 @@
-<p align="center">
-    <img width="300" src="https://s2.loli.net/2024/04/30/NJrstR1QzpoLyIT.png" alt="title">
-</p>
-<hr>
-<p align="center">Timeless and Classics Guns Zero</p>
-<p align="center">
-    <a href="https://www.curseforge.com/minecraft/mc-mods/timeless-and-classics-zero">
-        <img src="http://cf.way2muchnoise.eu/full_timeless-and-classics-zero.svg" alt="CurseForge Download">
-    </a>
-    <img src="https://img.shields.io/badge/license-GNU GPL 3.0 | CC%20BY--NC--ND%204.0-green" alt="License">
-    <br>
-    <a href="https://jitpack.io/#MCModderAnchor/TACZ">
-        <img src="https://jitpack.io/v/MCModderAnchor/TACZ.svg" alt="jitpack build">
-    </a>
-    <a href="https://crowdin.com/project/tacz">
-        <img src="https://badges.crowdin.net/tacz/localized.svg" alt="crowdin">
-    </a>
-</p>
-<p align="center">
-    <a href="https://github.com/MCModderAnchor/TACZ/issues">Report Bug</a>    ·
-    <a href="https://github.com/MCModderAnchor/TACZ/releases">View Release</a>    ·
-    <a href="https://tacwiki.mcma.club/zh/">Wiki</a>
-</p>
-
 Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 
 ## Notice
+- This is a mirror project of TACZ use neoforge mod loader and mc 1.21.1
+- Try same as original project, just code difference about different mod loader, 1.20.1 and 1.21.1
+- If you want jar, build it by your self
+- State: **Work in progress** Just runnable, not playable
+- 
 
-- If you have any bugs, you can visit [Issues](https://github.com/MCModderAnchor/TACZ/issues) to
-  submit issues.
+## Known issues
+- Mod `controllable` not available because it's not support mc 1.21.1
+  - In class `com.tacz.guns.compat.controllable.ControllableInner`
+- NBT tag not same as 1.20.1, because in 1.20.5/.6/1.21, forge/neoforge is rework capability system, not item has this nbt tags:
+  - `{components:{"tacz:data":{GunCurrentAmmoCount:7,GunFireMode:"SEMI",GunId:"tacz:deagle",HasBulletInBarrel:1b}},count:1,id:"tacz:modern_kinetic_gun"}`
+  - before: `{Count:1b,id:"tacz:modern_kinetic_gun",tag:{GunCurrentAmmoCount:17,GunFireMode:"SEMI",GunId:"tacz:glock_17",HasBulletInBarrel:1b}}`
+  - and saves will be **not compilable** with official mod when it becomes 1.21, because official may not use same components resource location id or same structural.
+- Config `tacz-pre.toml` is not working
+- Missing lag compensation, because `ServerPlayer` is no longer has latency counter cache.
+  - In class `com.tacz.guns.util.HitboxHelper.getFixedBoundingBox`
+- 
 
-## Authors
+## TODO
+- [ ] Test ItemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(CompoundTag)); correctly merge not replaced.
+  - `com.tacz.guns.crafting.result.RawGunTableResult`
+  - `com.tacz.guns.resource.serialize.GunSmithTableResultSerializer`
+  - `com.tacz.guns.api.item.nbt.AmmoBoxItemDataAccessor`
+  - `com.tacz.guns.api.item.nbt.AmmoItemDataAccessor`
+  - `com.tacz.guns.api.item.nbt.AttachmentItemDataAccessor`
+  - `com.tacz.guns.api.item.nbt.BlockItemDataAccessor`
+  - `com.tacz.guns.api.item.nbt.GunItemDataAccessor`
+  - `com.tacz.guns.item.GunTooltipPart`
+  - Two of others can try https://docs.neoforged.net/docs/items/datacomponents :
+    - `ItemStack.applyComponents(DataComponentPatch.builder().set(DataComponents.CUSTOM_DATA, CustomData.of(CompoundTag)).build());`
+    - `ItemStack.applyComponents(DataComponentMap.builder().set(DataComponents.CUSTOM_DATA, CustomData.of(CompoundTag)).build());`
+  - Can test when open creative tab at first time, break point in ``, manually add tags and test manually call 
+- [x] Need debug to check how to correctly get nbt tag
+  - `com.tacz.guns.api.item.nbt.AmmoBoxItemDataAccessor.getAmmoId`
+  - Now my function is an inefficient method to direct modify custom tags about item, not suggest but just can do.
+  - Getter is readonly because it use `copyTag()`. If need writeable, modify tag and **write it back** to ItemStack.
+- [x] Need debug to check how to use CustomData type and migrate from old forge, This method used by another one to doing set with readonly tags
+  - `com.tacz.guns.api.item.nbt.GunItemDataAccessor.getAttachmentTag`
+    - `com.tacz.guns.entity.shooter.LivingEntityAim.zoom`
+  - `com.tacz.guns.entity.sync.core.bak.IDataSerializer#write`
+- [ ] Need test destory gun smith table in creative if it correctly canceled
+  - `com.tacz.guns.block.GunSmithTableBlockB.playerWillDestroy`
+- [x] There is no method return AABB and produce something about rendering bounding box for block entity, why?
+  - `com.tacz.guns.block.entity.GunSmithTableBlockEntity`
+  - `com.tacz.guns.block.entity.TargetBlockEntity`
+  - `com.tacz.guns.block.entity.StatueBlockEntity`
+  - Turn it into `net.neoforged.neoforge.client.extensions.IBlockEntityRendererExtension` interface and implements it in Render class, client only.
+- [x] Use try-with-resource with resource pack?
+  - `com.tacz.guns.resource.GunPackLoader.discoverExtensions`
+  - looks it normally
+- [x] How to migrate config system?
+  - `com.tacz.guns.config.PreLoadConfig.load`
+  - `com.tacz.guns.config.PreLoadModConfig`
+- [ ] Check config screen is working
+  - `com.tacz.guns.compat.cloth.MenuIntegration.registerModsPage`
+  - `com.tacz.guns.client.gui.compat.ClothConfigScreen.registerNoClothConfigPage`
+- [x] Check player animation is can use this deprecated method
+  - `com.tacz.guns.compat.playeranimator.animation.PlayerAnimatorAssetManager`
+- [ ] Can't known how to replace AttachCapabilitiesEvent<T>
+  - `com.tacz.guns.event.SyncedEntityDataEvent.attachCapabilities`
+  - `com.tacz.guns.entity.sync.core.DataHolderCapabilityProvider`
+    - May be `IAttachmentSerializer` ? replaced by `com.tacz.guns.entity.sync.core.DataHolderSerializer`
+  - `com.tacz.guns.init.CapabilityRegistry`
+- [ ] And Capability System reworked, can't known how to do this
+  - `com.tacz.guns.event.SyncedEntityDataEvent.onPlayerClone`
+- [ ] Can't find spawner data interface replaced by, but it thinks are serialize/deserialize method.
+  - `com.tacz.guns.entity.EntityKineticBullet.writeSpawnData`
+  - `com.tacz.guns.entity.EntityKineticBullet.readSpawnData`
+- [ ] Each server tick produce twice????
+  - `com.tacz.guns.event.ServerTickEvent.onServerTick`
+  - `com.tacz.guns.client.event.TickAnimationEvent.tickAnimation`
+  - `com.tacz.guns.client.animation.screen.RefitTransform.tickInterpolation`
+  - `com.tacz.guns.client.event.InventoryEvent.onPlayerChangeSelect`
+- [ ] Check DYED_COLOR is same as "color" tag
+  - `com.tacz.guns.item.AmmoBoxItem.getTagColor`
+- [ ] Fake migrate ItemStack's Attachment to CUSTOM_DATA
+  - `com.tacz.guns.api.item.nbt.AttachmentItemDataAccessor.isAttachmentLike(net.minecraft.world.item.ItemStack)`
+- [x] May changed mixin and confused how to modify it
+  - `com.tacz.guns.mixin.client.MouseHandlerMixin.reduceSensitivity`
+  - `com.tacz.guns.mixin.client.StairBlockAccessor.invokeGetModelBlock`
+- [ ] hack provider
+  - `com.tacz.guns.client.resource.index.ClientAmmoIndex.checkParticle`
+  - `com.tacz.guns.client.resource.GunDisplayInstance.checkGunAmmo`
+- [ ] Hide debug
+  - `com.tacz.guns.network.message.ServerMessageSyncBaseTimestamp.updateBaseTimestamp`
+- [ ] Can I use as Unit DataComponents?
+  - `com.tacz.guns.init.ModComponents.CUSTOM_DATA` now without `.networkSynchronized(CustomData.STREAM_CODEC)` as Unit DataComponents.
+- [ ] Twice check nbt tag direct write, rework as get readonly tag and write back when source is ItemStack and no provider.
+  - `com.tacz.guns.api.util.LuaNbtAccessor` any put method like `putCompound`
+  - `com.tacz.guns.block.entity.StatueBlockEntity.loadAdditional` now statue is not working, may its problem
+  - `com.tacz.guns.block.entity.TargetBlockEntity.saveAdditional` is used for target block render as player?
+  - `com.tacz.guns.block.TargetBlock.onProjectileHit` not working
+- [ ] These classes are not modify correctly
+  - `com.tacz.guns.init.CapabilityRegistry`
+- [ ] full runtime test
+- 
 
-- Programmer: `286799714`, `TartaricAcid`, `F1zeiL`, `xjqsh`, `ClumsyAlien`
-- Artist: `NekoCrane`, `Receke`, `Pos_2333`
-
-## Credits
-
-- Other players who have helped me in any ways, and you
-
-## License
-
-- Code: [GNU GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.txt)
-- Assets: [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-
-## Maven
-
-```groovy
-repositories {
-    maven {
-        // Add curse maven to repositories
-        name = "Curse Maven"
-        url = "https://www.cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-}
-
-dependencies {
-    // You can see the https://www.cursemaven.com/
-    // Choose one of the following three
-
-    // If you want to use version tacz-1.20.1-1.0.2-release
-    implementation fg.deobf('curse.maven:timeless-and-classics-zero-1028108:5529117-sources-5529578')
-
-    // If you want to use version tacz-1.19.2-1.0.2-release
-    implementation fg.deobf('curse.maven:timeless-and-classics-zero-1028108:5529111-sources-5529576')
-
-    // If you want to use version tacz-1.18.2-1.0.2-release
-    implementation fg.deobf('curse.maven:timeless-and-classics-zero-1028108:5529108-sources-5529188')
-}
-```
+## Useful
+- Registries
+  - net.minecraft.core.registries.BuiltInRegistries
+  - net.neoforged.neoforge.registries.NeoForgeRegistries
+- DataComponents
+  - net.minecraft.core.component.DataComponents
+- ItemTags
+  - net.minecraft.tags.ItemTags
+- SoundEvents Holder
+  - net.minecraft.sounds.SoundEvents
+- MobEffects Holder
+  - net.minecraft.world.effect.MobEffects
+- Potions Holder
+  - net.minecraft.world.item.alchemy.Potions
+- ParticleTypes
+  - net.minecraft.core.particles.ParticleTypes
+- BlockEntityTypes
+  - net.minecraft.world.level.block.entity.BlockEntityType
+- Stats & StatTypes
+  - net.minecraft.stats.Stats
+- MenuTypes
+  - net.minecraft.world.inventory.MenuType
+- RecipeTypes
+  - net.minecraft.world.item.crafting.RecipeType
+- RecipeSerializer
+  - net.minecraft.world.item.crafting.RecipeSerializer
+- Attributes Holder
+  - net.minecraft.world.entity.ai.attributes.Attributes
+- PotionSourceTypes
+  - net.minecraft.world.level.gameevent.PositionSourceType
+- Capability register tutorial
+  - net.neoforged.neoforge.capabilities.CapabilityHooks.registerVanillaProviders
+- Gui Layers
+  - net.neoforged.neoforge.client.gui.VanillaGuiLayers
+- Networks
+  - net.minecraft.network.protocol.game.GameProtocols
+  - net.minecraft.network.protocol.game.GamePacketTypes
+- 

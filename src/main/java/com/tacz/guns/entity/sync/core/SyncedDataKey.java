@@ -13,13 +13,9 @@ import java.util.function.Supplier;
  * Open source at <a href="https://github.com/MrCrayfish/Framework">Github</a> under LGPL License.
  */
 public record SyncedDataKey<E extends Entity, T>(Pair<ResourceLocation, ResourceLocation> pairKey, ResourceLocation id,
-                                                 SyncedClassKey<E> classKey, IDataSerializer<T> serializer,
+                                                 SyncedClassKey<E> classKey, DataSerializer<T> serializer,
                                                  Supplier<T> defaultValueSupplier, boolean save, boolean persistent,
                                                  SyncMode syncMode) {
-    public static <E extends Entity, T> Builder<E, T> builder(SyncedClassKey<E> entityClass, IDataSerializer<T> serializer) {
-        return new Builder<>(entityClass, serializer);
-    }
-
     public void setValue(E entity, T value) {
         SyncedEntityData.instance().set(entity, this, value);
     }
@@ -30,12 +26,8 @@ public record SyncedDataKey<E extends Entity, T>(Pair<ResourceLocation, Resource
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
         SyncedDataKey<?, ?> that = (SyncedDataKey<?, ?>) o;
         return Objects.equals(this.pairKey, that.pairKey);
     }
@@ -77,6 +69,10 @@ public record SyncedDataKey<E extends Entity, T>(Pair<ResourceLocation, Resource
             this.self = self;
         }
 
+        public boolean willSync() {
+            return this != NONE;
+        }
+
         public boolean isTracking() {
             return this.tracking;
         }
@@ -86,16 +82,20 @@ public record SyncedDataKey<E extends Entity, T>(Pair<ResourceLocation, Resource
         }
     }
 
+    public static <E extends Entity, T> Builder<E, T> builder(SyncedClassKey<E> entityClass, DataSerializer<T> serializer) {
+        return new Builder<>(entityClass, serializer);
+    }
+
     public static class Builder<E extends Entity, T> {
         private final SyncedClassKey<E> classKey;
-        private final IDataSerializer<T> serializer;
+        private final DataSerializer<T> serializer;
         private ResourceLocation id;
         private Supplier<T> defaultValueSupplier;
         private boolean save = false;
         private boolean persistent = true;
         private SyncMode syncMode = SyncMode.ALL;
 
-        private Builder(SyncedClassKey<E> classKey, IDataSerializer<T> serializer) {
+        private Builder(SyncedClassKey<E> classKey, DataSerializer<T> serializer) {
             this.classKey = classKey;
             this.serializer = serializer;
         }
@@ -119,7 +119,7 @@ public record SyncedDataKey<E extends Entity, T>(Pair<ResourceLocation, Resource
          * Sets the id for the synced key using a String. This is a required property.
          */
         public Builder<E, T> id(String id) {
-            this.id = new ResourceLocation(id);
+            this.id = ResourceLocation.parse(id);
             return this;
         }
 

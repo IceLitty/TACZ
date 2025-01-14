@@ -15,17 +15,20 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.client.extensions.IBlockEntityRendererExtension;
 
 import java.util.Optional;
 
-public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity> {
+public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity>, IBlockEntityRendererExtension<StatueBlockEntity> {
     public StatueRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -96,4 +99,11 @@ public class StatueRenderer implements BlockEntityRenderer<StatueBlockEntity> {
     public boolean shouldRender(StatueBlockEntity pBlockEntity, Vec3 pCameraPos) {
         return Vec3.atCenterOf(pBlockEntity.getBlockPos().above()).closerThan(pCameraPos, this.getViewDistance());
     }
+
+    @Override
+    public AABB getRenderBoundingBox(StatueBlockEntity blockEntity) {
+        BlockPos worldPosition = blockEntity.getBlockPos();
+        return new AABB(worldPosition.offset(-2, 0, -2).getCenter(), worldPosition.offset(2, 2, 2).getCenter());
+    }
+
 }

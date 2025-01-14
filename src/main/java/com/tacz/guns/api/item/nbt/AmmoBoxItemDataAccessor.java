@@ -4,8 +4,7 @@ import com.tacz.guns.api.DefaultAssets;
 import com.tacz.guns.api.TimelessAPI;
 import com.tacz.guns.api.item.IAmmoBox;
 import com.tacz.guns.api.item.IGun;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,39 +17,33 @@ public interface AmmoBoxItemDataAccessor extends IAmmoBox {
 
     @Override
     default ResourceLocation getAmmoId(ItemStack ammoBox) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
-        if (tag.contains(AMMO_ID_TAG, Tag.TAG_STRING)) {
-            return new ResourceLocation(tag.getString(AMMO_ID_TAG));
+        String resourceId = NBTHelper.getTagValueFromItemStack(ammoBox, AMMO_ID_TAG, (String) null);
+        if (resourceId != null) {
+            return ResourceLocation.parse(resourceId);
         }
         return DefaultAssets.EMPTY_AMMO_ID;
     }
 
     @Override
     default void setAmmoId(ItemStack ammoBox, ResourceLocation ammoId) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
-        tag.putString(AMMO_ID_TAG, ammoId.toString());
+        NBTHelper.setCustomTagToItemStack(ammoBox, tag -> tag.putString(AMMO_ID_TAG, ammoId.toString()));
     }
 
     @Override
     default int getAmmoCount(ItemStack ammoBox) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
         if (isAllTypeCreative(ammoBox) || isCreative(ammoBox)) {
             return Integer.MAX_VALUE;
         }
-        if (tag.contains(AMMO_COUNT_TAG, Tag.TAG_INT)) {
-            return tag.getInt(AMMO_COUNT_TAG);
-        }
-        return 0;
+        return NBTHelper.getTagValueFromItemStack(ammoBox, AMMO_COUNT_TAG, 0);
     }
 
     @Override
     default void setAmmoCount(ItemStack ammoBox, int count) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
         if (isCreative(ammoBox)) {
-            tag.putInt(AMMO_COUNT_TAG, Integer.MAX_VALUE);
+            NBTHelper.setCustomTagToItemStack(ammoBox, tag -> tag.putInt(AMMO_COUNT_TAG, Integer.MAX_VALUE));
             return;
         }
-        tag.putInt(AMMO_COUNT_TAG, count);
+        NBTHelper.setCustomTagToItemStack(ammoBox, tag -> tag.putInt(AMMO_COUNT_TAG, count));
     }
 
     @Override
@@ -71,54 +64,34 @@ public interface AmmoBoxItemDataAccessor extends IAmmoBox {
 
     @Override
     default ItemStack setAmmoLevel(ItemStack ammoBox, int level) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
-        tag.putInt(LEVEL_TAG, Math.max(level, 0));
+        NBTHelper.setCustomTagToItemStack(ammoBox, tag -> tag.putInt(LEVEL_TAG, Math.max(level, 0)));
         return ammoBox;
     }
 
     @Override
     default int getAmmoLevel(ItemStack ammoBox) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
-        if (tag.contains(LEVEL_TAG, Tag.TAG_INT)) {
-            return tag.getInt(LEVEL_TAG);
-        }
-        return 0;
+        return NBTHelper.getTagValueFromItemStack(ammoBox, LEVEL_TAG, 0);
     }
 
     @Override
     default boolean isCreative(ItemStack ammoBox) {
-        CompoundTag tag = ammoBox.getTag();
-        if (tag != null && tag.contains(CREATIVE_TAG, Tag.TAG_BYTE)) {
-            return tag.getBoolean(CREATIVE_TAG);
-        }
-        return false;
+        return NBTHelper.getTagValueFromItemStack(ammoBox, CREATIVE_TAG, false);
     }
 
     @Override
     default boolean isAllTypeCreative(ItemStack ammoBox) {
-        CompoundTag tag = ammoBox.getTag();
-        if (tag != null && tag.contains(ALL_TYPE_CREATIVE_TAG, Tag.TAG_BYTE)) {
-            return tag.getBoolean(ALL_TYPE_CREATIVE_TAG);
-        }
-        return false;
+        return NBTHelper.getTagValueFromItemStack(ammoBox, ALL_TYPE_CREATIVE_TAG, false);
     }
 
     @Override
     default ItemStack setCreative(ItemStack ammoBox, boolean isAllType) {
-        CompoundTag tag = ammoBox.getOrCreateTag();
         if (isAllType) {
-            // 移除可能存在的创造模式标签
-            if (tag.contains(CREATIVE_TAG, Tag.TAG_BYTE)) {
-                tag.remove(CREATIVE_TAG);
-            }
-            tag.putBoolean(ALL_TYPE_CREATIVE_TAG, true);
+            NBTHelper.removeCustomTagToItemStack(ammoBox, CREATIVE_TAG);
+            NBTHelper.setCustomTagToItemStack(ammoBox, t -> t.putBoolean(ALL_TYPE_CREATIVE_TAG, true));
             return ammoBox;
         }
-        // 移除可能存在的全类型标签
-        if (tag.contains(ALL_TYPE_CREATIVE_TAG, Tag.TAG_BYTE)) {
-            tag.remove(ALL_TYPE_CREATIVE_TAG);
-        }
-        tag.putBoolean(CREATIVE_TAG, true);
+        NBTHelper.removeCustomTagToItemStack(ammoBox, ALL_TYPE_CREATIVE_TAG);
+        NBTHelper.setCustomTagToItemStack(ammoBox, t -> t.putBoolean(CREATIVE_TAG, true));
         return ammoBox;
     }
 }

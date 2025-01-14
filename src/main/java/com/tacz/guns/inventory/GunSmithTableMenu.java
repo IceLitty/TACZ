@@ -15,17 +15,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class GunSmithTableMenu extends AbstractContainerMenu {
-    public static final MenuType<GunSmithTableMenu> TYPE = IForgeMenuType.create((windowId, inv, data) -> {
+    public static final MenuType<GunSmithTableMenu> TYPE = IMenuTypeExtension.create((windowId, inv, data) -> {
         ResourceLocation blockId = data.readResourceLocation();
         return new GunSmithTableMenu(windowId, inv, blockId);
     });
@@ -59,9 +61,12 @@ public class GunSmithTableMenu extends AbstractContainerMenu {
         if (filter != null && !filter.contains(recipeId)) {
             return null;
         }
-        Recipe<?> recipe = recipeManager.byKey(recipeId).orElse(null);
-        if (recipe instanceof GunSmithTableRecipe) {
-            return (GunSmithTableRecipe) recipe;
+        Optional<RecipeHolder<?>> recipeHolder = recipeManager.byKey(recipeId);
+        if (recipeHolder.isPresent()) {
+            RecipeHolder<?> recipe = recipeHolder.get();
+            if (recipe.value() instanceof GunSmithTableRecipe) {
+                return (GunSmithTableRecipe) recipe.value();
+            }
         }
         return null;
     }
@@ -71,7 +76,8 @@ public class GunSmithTableMenu extends AbstractContainerMenu {
         if (recipe == null) {
             return;
         }
-        player.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(handler -> {
+        IItemHandler handler = player.getCapability(Capabilities.ItemHandler.ENTITY, null);
+        if (handler != null) {
             Int2IntArrayMap recordCount = new Int2IntArrayMap();
             List<GunSmithTableIngredient> ingredients = recipe.getInputs();
 
@@ -115,6 +121,6 @@ public class GunSmithTableMenu extends AbstractContainerMenu {
             // 更新，否则客户端显示不正确
             player.inventoryMenu.broadcastFullState();
             NetworkHandler.sendToClientPlayer(new ServerMessageCraft(this.containerId), player);
-        });
+        }
     }
 }

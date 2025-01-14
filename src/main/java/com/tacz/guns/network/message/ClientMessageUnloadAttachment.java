@@ -1,43 +1,35 @@
 package com.tacz.guns.network.message;
 
+import com.tacz.guns.GunMod;
 import com.tacz.guns.api.item.IGun;
 import com.tacz.guns.api.item.attachment.AttachmentType;
 import com.tacz.guns.network.NetworkHandler;
 import com.tacz.guns.resource.modifier.AttachmentPropertyManager;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record ClientMessageUnloadAttachment(int gunSlotIndex, AttachmentType attachmentType) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<ClientMessageUnloadAttachment> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "c2s_unload_attachment"));
+    public static final StreamCodec<FriendlyByteBuf, ClientMessageUnloadAttachment> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, ClientMessageUnloadAttachment::gunSlotIndex,
+            AttachmentType.ID_STREAM_CODEC, ClientMessageUnloadAttachment::attachmentType,
+            ClientMessageUnloadAttachment::new
+    );
 
-public class ClientMessageUnloadAttachment {
-    private final int gunSlotIndex;
-    private final AttachmentType attachmentType;
-
-    public ClientMessageUnloadAttachment(int gunSlotIndex, AttachmentType attachmentType) {
-        this.gunSlotIndex = gunSlotIndex;
-        this.attachmentType = attachmentType;
+    public static void clientHandler(final ClientMessageUnloadAttachment message, final IPayloadContext context) {
     }
 
-    public static void encode(ClientMessageUnloadAttachment message, FriendlyByteBuf buf) {
-        buf.writeInt(message.gunSlotIndex);
-        buf.writeEnum(message.attachmentType);
-    }
-
-    public static ClientMessageUnloadAttachment decode(FriendlyByteBuf buf) {
-        return new ClientMessageUnloadAttachment(buf.readInt(), buf.readEnum(AttachmentType.class));
-    }
-
-    public static void handle(ClientMessageUnloadAttachment message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        if (context.getDirection().getReceptionSide().isServer()) {
-            context.enqueueWork(() -> {
-                ServerPlayer player = context.getSender();
-                if (player == null) {
-                    return;
-                }
+    public static void serverHandler(final ClientMessageUnloadAttachment message, final IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.player() instanceof ServerPlayer player) {
                 Inventory inventory = player.getInventory();
                 ItemStack gunItem = inventory.getItem(message.gunSlotIndex);
                 IGun iGun = IGun.getIGunOrNull(gunItem);
@@ -55,9 +47,12 @@ public class ClientMessageUnloadAttachment {
                         NetworkHandler.sendToClientPlayer(new ServerMessageRefreshRefitScreen(), player);
                     }
                 }
-            });
-        }
-        context.setPacketHandled(true);
+            }
+        });
     }
 
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
 }

@@ -1,10 +1,10 @@
 package com.tacz.guns.client.resource_legacy.loader.asset;
 
-import com.mojang.blaze3d.audio.OggAudioStream;
 import com.tacz.guns.GunMod;
 import com.tacz.guns.client.resource_legacy.ClientAssetManager;
 import com.tacz.guns.client.resource.manager.SoundAssetsManager;
 import com.tacz.guns.util.TacPathVisitor;
+import net.minecraft.client.sounds.JOrbisAudioStream;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -36,9 +36,9 @@ public final class SoundLoader {
                 GunMod.LOGGER.warn(MARKER, "{} file don't exist", zipPath);
                 return false;
             }
-            try (InputStream zipEntryStream = zipFile.getInputStream(entry); OggAudioStream audioStream = new OggAudioStream(zipEntryStream)) {
+            try (InputStream zipEntryStream = zipFile.getInputStream(entry); JOrbisAudioStream audioStream = new JOrbisAudioStream(zipEntryStream)) {
                 ByteBuffer bytebuffer = audioStream.readAll();
-                ResourceLocation registryName = new ResourceLocation(namespace, path);
+                ResourceLocation registryName = ResourceLocation.fromNamespaceAndPath(namespace, path);
                 ClientAssetManager.INSTANCE.putSoundBuffer(registryName, new SoundAssetsManager.SoundData(bytebuffer, audioStream.getFormat()));
                 return true;
             } catch (IOException ioe) {
@@ -53,7 +53,7 @@ public final class SoundLoader {
         Path filePath = root.toPath().resolve("sounds");
         if (Files.isDirectory(filePath)) {
             TacPathVisitor visitor = new TacPathVisitor(filePath.toFile(), root.getName(), ".ogg", (id, file) -> {
-                try (InputStream stream = Files.newInputStream(file); OggAudioStream audioStream = new OggAudioStream(stream)) {
+                try (InputStream stream = Files.newInputStream(file); JOrbisAudioStream audioStream = new JOrbisAudioStream(stream)) {
                     ByteBuffer bytebuffer = audioStream.readAll();
                     ClientAssetManager.INSTANCE.putSoundBuffer(id, new SoundAssetsManager.SoundData(bytebuffer, audioStream.getFormat()));
                 } catch (IOException exception) {

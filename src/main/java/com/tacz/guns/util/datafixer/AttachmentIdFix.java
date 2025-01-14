@@ -2,8 +2,10 @@ package com.tacz.guns.util.datafixer;
 
 import com.google.common.collect.ImmutableMap;
 import com.tacz.guns.api.DefaultAssets;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Map;
 
@@ -17,12 +19,12 @@ public final class AttachmentIdFix {
     public static final Map<ResourceLocation, ResourceLocation> OLD_TO_NEW;
     static  {
         OLD_TO_NEW = ImmutableMap.<ResourceLocation, ResourceLocation>builder()
-                .put(new ResourceLocation("tacz", "muzzle_silence_knight_qd"), new ResourceLocation("tacz", "muzzle_silencer_knight_qd"))
-                .put(new ResourceLocation("tacz", "muzzle_silence_mirage"), new ResourceLocation("tacz", "muzzle_silencer_mirage"))
-                .put(new ResourceLocation("tacz", "muzzle_silence_phantom_s1"), new ResourceLocation("tacz", "muzzle_silencer_phantom_s1"))
-                .put(new ResourceLocation("tacz", "muzzle_silence_ptilopsis"), new ResourceLocation("tacz", "muzzle_silencer_ptilopsis"))
-                .put(new ResourceLocation("tacz", "muzzle_silence_ursus"), new ResourceLocation("tacz", "muzzle_silencer_ursus"))
-                .put(new ResourceLocation("tacz", "muzzle_silence_vulture"), new ResourceLocation("tacz", "muzzle_silencer_vulture"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_knight_qd"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_knight_qd"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_mirage"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_mirage"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_phantom_s1"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_phantom_s1"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_ptilopsis"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_ptilopsis"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_ursus"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_ursus"))
+                .put(ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silence_vulture"), ResourceLocation.fromNamespaceAndPath("tacz", "muzzle_silencer_vulture"))
                 .build();
     }
 
@@ -33,6 +35,21 @@ public final class AttachmentIdFix {
             ResourceLocation fixed = updateAttachmentId(old);
             if (!old.equals(fixed)) {
                 tag.putString(ATTACHMENT_ID_TAG, fixed.toString());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Same as {@link AttachmentIdFix#updateAttachmentIdInTag(CompoundTag)}
+     */
+    public static boolean updateAttachmentIdInItemStack(ItemStack itemStack) {
+        ResourceLocation old = getAttachmentIdFromItemStack(itemStack);
+        if (!old.equals(DefaultAssets.EMPTY_ATTACHMENT_ID)) {
+            ResourceLocation fixed = updateAttachmentId(old);
+            if (!old.equals(fixed)) {
+                NBTHelper.setCustomTagToItemStack(itemStack, t -> t.putString(ATTACHMENT_ID_TAG, fixed.toString()));
                 return true;
             }
         }

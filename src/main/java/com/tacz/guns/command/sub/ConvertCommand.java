@@ -4,10 +4,10 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.tacz.guns.resource.PackConvertor;
+import com.tacz.guns.util.helper.DistExecutorHelper;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
+import net.neoforged.api.distmarker.Dist;
 
 public class ConvertCommand {
     private static final String CONVERT_NAME = "convert";
@@ -19,7 +19,7 @@ public class ConvertCommand {
     }
 
     private static int convert(CommandContext<CommandSourceStack> context) {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PackConvertor.convert(context.getSource()));
+        DistExecutorHelper.unsafeRunWhenOn(Dist.CLIENT, () -> () -> PackConvertor.convert(context.getSource()));
         return Command.SINGLE_SUCCESS;
     }
 }

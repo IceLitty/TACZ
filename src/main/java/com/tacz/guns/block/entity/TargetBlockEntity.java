@@ -5,9 +5,11 @@ import com.tacz.guns.block.TargetBlock;
 import com.tacz.guns.config.common.OtherConfig;
 import com.tacz.guns.init.ModBlocks;
 import com.tacz.guns.init.ModSounds;
+import com.tacz.guns.util.helper.NBTHelper;
+import com.tacz.guns.util.helper.SkullBlockEntityHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -21,10 +23,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
+
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import static com.tacz.guns.block.TargetBlock.OUTPUT_POWER;
 import static com.tacz.guns.block.TargetBlock.STAND;
@@ -62,31 +66,33 @@ public class TargetBlockEntity extends BlockEntity implements Nameable {
 
     public void setOwner(@Nullable GameProfile owner) {
         this.owner = owner;
-        SkullBlockEntity.updateGameprofile(this.owner, gameProfile -> {
-            this.owner = gameProfile;
-            this.refresh();
-        });
+        if (this.owner != null) {
+            SkullBlockEntityHelper.updateGameprofile(this.owner, gameProfile -> {
+                this.owner = gameProfile;
+                this.refresh();
+            });
+        }
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(tag, pRegistries);
         if (tag.contains(OWNER_TAG, Tag.TAG_COMPOUND)) {
-            this.owner = NbtUtils.readGameProfile(tag.getCompound(OWNER_TAG));
+            this.owner = NBTHelper.readGameProfile(tag.getCompound(OWNER_TAG));
         }
         if (tag.contains(CUSTOM_NAME_TAG, Tag.TAG_STRING)) {
-            this.name = Component.Serializer.fromJson(tag.getString(CUSTOM_NAME_TAG));
+            this.name = Component.Serializer.fromJson(tag.getString(CUSTOM_NAME_TAG), pRegistries);
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(tag, pRegistries);
         if (owner != null) {
-            tag.put(OWNER_TAG, NbtUtils.writeGameProfile(new CompoundTag(), owner));
+            tag.put(OWNER_TAG, NBTHelper.writeGameProfile(new CompoundTag(), owner));
         }
         if (this.name != null) {
-            tag.putString(CUSTOM_NAME_TAG, Component.Serializer.toJson(this.name));
+            tag.putString(CUSTOM_NAME_TAG, Component.Serializer.toJson(this.name, pRegistries));
         }
     }
 
@@ -111,8 +117,8 @@ public class TargetBlockEntity extends BlockEntity implements Nameable {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+        return saveWithoutMetadata(pRegistries);
     }
 
     public void refresh() {
@@ -121,11 +127,6 @@ public class TargetBlockEntity extends BlockEntity implements Nameable {
             BlockState state = level.getBlockState(worldPosition);
             level.sendBlockUpdated(worldPosition, state, state, Block.UPDATE_ALL);
         }
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        return new AABB(worldPosition.offset(-2, 0, -2), worldPosition.offset(2, 2, 2));
     }
 
     public void hit(Level level, BlockState state, BlockHitResult hit, boolean isUpperBlock) {

@@ -2,14 +2,22 @@ package com.tacz.guns.api.item.nbt;
 
 import com.tacz.guns.api.DefaultAssets;
 import com.tacz.guns.api.item.IAttachment;
+import com.tacz.guns.util.helper.NBTHelper;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.TypedDataComponent;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 
 public interface AttachmentItemDataAccessor extends IAttachment {
     String ATTACHMENT_ID_TAG = "AttachmentId";
@@ -21,6 +29,17 @@ public interface AttachmentItemDataAccessor extends IAttachment {
         return tag.contains(ATTACHMENT_ID_TAG, Tag.TAG_STRING);
     }
 
+    /**
+     * Same as {@link AttachmentItemDataAccessor#isAttachmentLike(CompoundTag)}
+     */
+    static boolean isAttachmentLike(ItemStack itemStack) {
+        CompoundTag baseTag = NBTHelper.getCustomTagFromItemStackReadonly(itemStack);
+        if (baseTag != null) {
+            return baseTag.contains(ATTACHMENT_ID_TAG);
+        }
+        return false;
+    }
+
     @Nonnull
     static ResourceLocation getAttachmentIdFromTag(@Nullable CompoundTag nbt) {
         if (nbt == null) {
@@ -28,6 +47,22 @@ public interface AttachmentItemDataAccessor extends IAttachment {
         }
         if (isAttachmentLike(nbt)) {
             ResourceLocation attachmentId = ResourceLocation.tryParse(nbt.getString(ATTACHMENT_ID_TAG));
+            return Objects.requireNonNullElse(attachmentId, DefaultAssets.EMPTY_ATTACHMENT_ID);
+        }
+        return DefaultAssets.EMPTY_ATTACHMENT_ID;
+    }
+
+    /**
+     * Same as {@link AttachmentItemDataAccessor#getAttachmentIdFromTag(CompoundTag)}
+     */
+    @Nonnull
+    static ResourceLocation getAttachmentIdFromItemStack(@Nullable ItemStack itemStack) {
+        if (itemStack == null) {
+            return DefaultAssets.EMPTY_ATTACHMENT_ID;
+        }
+        if (isAttachmentLike(itemStack)) {
+            CompoundTag baseTag = NBTHelper.getCustomTagFromItemStackReadonly(itemStack);
+            ResourceLocation attachmentId = ResourceLocation.tryParse(baseTag.getString(ATTACHMENT_ID_TAG));
             return Objects.requireNonNullElse(attachmentId, DefaultAssets.EMPTY_ATTACHMENT_ID);
         }
         return DefaultAssets.EMPTY_ATTACHMENT_ID;
@@ -43,6 +78,9 @@ public interface AttachmentItemDataAccessor extends IAttachment {
         return 0;
     }
 
+    /**
+     * NEED MANUALLY WRITE BACK TO ITEM STACK
+     */
     static void setZoomNumberToTag(CompoundTag nbt, int zoomNumber) {
         nbt.putInt(ZOOM_NUMBER_TAG, zoomNumber);
     }
@@ -50,47 +88,44 @@ public interface AttachmentItemDataAccessor extends IAttachment {
     @Override
     @Nonnull
     default ResourceLocation getAttachmentId(ItemStack attachmentStack) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
+        CompoundTag nbt = NBTHelper.getCustomTagFromItemStackReadonly(attachmentStack);
         return getAttachmentIdFromTag(nbt);
     }
 
     @Override
     default void setAttachmentId(ItemStack attachmentStack, @Nullable ResourceLocation attachmentId) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
         if (attachmentId != null) {
-            nbt.putString(ATTACHMENT_ID_TAG, attachmentId.toString());
+            NBTHelper.setCustomTagToItemStack(attachmentStack, t -> t.putString(ATTACHMENT_ID_TAG, attachmentId.toString()));
         }
     }
 
     @Override
     @Nullable
     default ResourceLocation getSkinId(ItemStack attachmentStack) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
-        if (nbt.contains(SKIN_ID_TAG, Tag.TAG_STRING)) {
-            return ResourceLocation.tryParse(nbt.getString(SKIN_ID_TAG));
+        String resourceId = NBTHelper.getTagValueFromItemStack(attachmentStack, SKIN_ID_TAG, (String) null);
+        if (resourceId != null) {
+            return ResourceLocation.tryParse(resourceId);
         }
         return null;
     }
 
     @Override
     default void setSkinId(ItemStack attachmentStack, @Nullable ResourceLocation skinId) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
         if (skinId != null) {
-            nbt.putString(SKIN_ID_TAG, skinId.toString());
+            NBTHelper.setCustomTagToItemStack(attachmentStack, t -> t.putString(SKIN_ID_TAG, skinId.toString()));
         } else {
-            nbt.remove(SKIN_ID_TAG);
+            NBTHelper.removeCustomTagToItemStack(attachmentStack, SKIN_ID_TAG);
         }
     }
 
     @Override
     default int getZoomNumber(ItemStack attachmentStack) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
+        CompoundTag nbt = NBTHelper.getCustomTagFromItemStackReadonly(attachmentStack);
         return getZoomNumberFromTag(nbt);
     }
 
     @Override
     default void setZoomNumber(ItemStack attachmentStack, int zoomNumber) {
-        CompoundTag nbt = attachmentStack.getOrCreateTag();
-        setZoomNumberToTag(nbt, zoomNumber);
+        NBTHelper.setCustomTagToItemStack(attachmentStack, t -> setZoomNumberToTag(t, zoomNumber));
     }
 }

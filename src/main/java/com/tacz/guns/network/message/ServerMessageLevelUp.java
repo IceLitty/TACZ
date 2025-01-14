@@ -1,41 +1,32 @@
 package com.tacz.guns.network.message;
 
+import com.tacz.guns.GunMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record ServerMessageLevelUp(ItemStack gun, int level) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<ServerMessageLevelUp> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "s2c_level_up"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ServerMessageLevelUp> STREAM_CODEC = StreamCodec.composite(
+            ItemStack.STREAM_CODEC, ServerMessageLevelUp::gun,
+            ByteBufCodecs.VAR_INT, ServerMessageLevelUp::level,
+            ServerMessageLevelUp::new
+    );
 
-public class ServerMessageLevelUp {
-    private final ItemStack gun;
-    private final int level;
-
-    public ServerMessageLevelUp(ItemStack gun, int level) {
-        this.gun = gun;
-        this.level = level;
+    public static void clientHandler(final ServerMessageLevelUp message, final IPayloadContext context) {
+        context.enqueueWork(() -> onLevelUp(message));
     }
 
-    public static void encode(ServerMessageLevelUp message, FriendlyByteBuf buf) {
-        buf.writeItemStack(message.gun, true);
-        buf.writeInt(message.level);
-    }
-
-    public static ServerMessageLevelUp decode(FriendlyByteBuf buf) {
-        ItemStack gun = buf.readItem();
-        int level = buf.readInt();
-        return new ServerMessageLevelUp(gun, level);
-    }
-
-    public static void handle(ServerMessageLevelUp message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        if (context.getDirection().getReceptionSide().isClient()) {
-            context.enqueueWork(() -> onLevelUp(message));
-        }
-        context.setPacketHandled(true);
+    public static void serverHandler(final ServerMessageLevelUp message, final IPayloadContext context) {
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -69,5 +60,10 @@ public class ServerMessageLevelUp {
 
     public int getLevel() {
         return this.level;
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

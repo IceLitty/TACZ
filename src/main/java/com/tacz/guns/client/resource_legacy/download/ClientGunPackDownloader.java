@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.tacz.guns.GunMod;
 import com.tacz.guns.client.gui.GunPackProgressScreen;
 import com.tacz.guns.client.resource_legacy.ClientReloadManager;
+import com.tacz.guns.util.helper.HttpUtilHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.WorldVersion;
 import net.minecraft.client.Minecraft;
@@ -12,8 +13,7 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.HttpUtil;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 
@@ -50,7 +50,7 @@ public class ClientGunPackDownloader {
         WorldVersion currentVersion = SharedConstants.getCurrentVersion();
 
         map.put("X-Minecraft-Username", user.getName());
-        map.put("X-Minecraft-UUID", user.getUuid());
+        map.put("X-Minecraft-UUID", user.getProfileId().toString());
         map.put("X-Minecraft-Version", currentVersion.getName());
         map.put("X-Minecraft-Version-ID", currentVersion.getId());
         map.put("X-TACZ-Version", ModList.get().getModFileById(GunMod.MOD_ID).versionString());
@@ -84,7 +84,7 @@ public class ClientGunPackDownloader {
                 Minecraft minecraft = Minecraft.getInstance();
                 minecraft.executeBlocking(() -> minecraft.setScreen(progressScreen));
                 URL url = new URL(plainUrl);
-                downloadFuture = HttpUtil.downloadTo(gunPack, url, getDownloadHeaders(), MAX_FILE_SIZE, progressScreen, minecraft.getProxy());
+                downloadFuture = HttpUtilHelper.downloadTo(gunPack, url, getDownloadHeaders(), MAX_FILE_SIZE, progressScreen, minecraft.getProxy());
             }
 
             // 下载完成后的处理

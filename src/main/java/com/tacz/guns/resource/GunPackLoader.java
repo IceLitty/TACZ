@@ -10,20 +10,17 @@ import cpw.mods.jarhandling.SecureJar;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackResources;
-import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.*;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
 import net.minecraft.server.packs.resources.IoSupplier;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraftforge.forgespi.locating.IModFile;
-import net.minecraftforge.resource.DelegatingPackResources;
-import net.minecraftforge.resource.PathPackResources;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforgespi.language.IModInfo;
+import net.neoforged.neoforgespi.locating.IModFile;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
@@ -80,7 +77,7 @@ public enum GunPackLoader implements RepositorySource {
 
         // 仅在第一次加载时复制默认资源包
         if (firstLoad) {
-            if (!PreLoadConfig.override.get()) {
+            if (!PreLoadConfig.override.getDefault()) {
                 for (ResourceManager.ExtraEntry entry : ResourceManager.EXTRA_ENTRIES) {
                     GetJarResources.copyModDirectory(entry.modMainClass(), entry.srcPath(), resourcePacksPath, entry.extraDirName());
                 }
@@ -92,7 +89,8 @@ public enum GunPackLoader implements RepositorySource {
         List<PathPackResources> extensionPacks = new ArrayList<>();
 
         for(GunPack gunPack : gunPacks) {
-            PathPackResources packResources = new PathPackResources(gunPack.name, false, gunPack.path) {
+            PackLocationInfo info = new PackLocationInfo("file/" + gunPack.name(), Component.literal(gunPack.name()), PackSource.DEFAULT, Optional.empty());
+            PathPackResources packResources = new PathPackResources(info, gunPack.path) {
                 private final SecureJar secureJar = SecureJar.from(gunPack.path);
 
                 @NotNull
@@ -115,21 +113,23 @@ public enum GunPackLoader implements RepositorySource {
             extensionPacks.add(packResources);
         }
 
-
-        return Pack.readMetaAndCreate("tacz_resources", Component.literal("TACZ Resources"), true, (id) -> {
-            return new DelegatingPackResources(id, false, new PackMetadataSection(Component.translatable("tacz.resources.modresources"),
-                    SharedConstants.getCurrentVersion().getPackVersion(packType)), extensionPacks) {
-                public IoSupplier<InputStream> getRootResource(String... paths) {
-                    if (paths.length == 1 && paths[0].equals("pack.png")) {
-                        Path logoPath = getModIcon("tacz");
-                        if (logoPath != null) {
-                            return IoSupplier.create(logoPath);
-                        }
+        PackLocationInfo info = new PackLocationInfo("tacz_resources", Component.literal("TACZ Resources"), PackSource.BUILT_IN, Optional.empty());
+        PackSelectionConfig config = new PackSelectionConfig(true, Pack.Position.BOTTOM, false);
+        PackMetadataSection metadataSection = new PackMetadataSection(Component.translatable("tacz.resources.modresources"), SharedConstants.getCurrentVersion().getPackVersion(packType));
+        try (DelegatingPackResources r = new DelegatingPackResources(info, metadataSection, extensionPacks) {
+            @Override
+            public @Nullable IoSupplier<InputStream> getRootResource(String... paths) {
+                if (paths.length == 1 && paths[0].equals("pack.png")) {
+                    Path logoPath = getModIcon("tacz");
+                    if (logoPath != null) {
+                        return IoSupplier.create(logoPath);
                     }
-                    return null;
                 }
-            };
-        }, packType, Pack.Position.BOTTOM, PackSource.BUILT_IN);
+                return null;
+            }
+        }) {
+            return Pack.readMetaAndCreate(info, r.supplier(), packType, config);
+        }
     }
 
     public static @Nullable Path getModIcon(String modId) {

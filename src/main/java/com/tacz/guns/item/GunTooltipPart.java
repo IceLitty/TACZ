@@ -1,7 +1,7 @@
 package com.tacz.guns.item;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import com.tacz.guns.util.helper.ItemStackHelper;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.world.item.ItemStack;
 
 public enum GunTooltipPart {
@@ -19,14 +19,14 @@ public enum GunTooltipPart {
     }
 
     public static int getHideFlags(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains("HideFlags", Tag.TAG_ANY_NUMERIC)) {
-            return tag.getInt("HideFlags");
+        Integer hideFlags = NBTHelper.getTagValueFromItemStack(stack, "HideFlags", (Integer) null);
+        if (hideFlags != null) {
+            return hideFlags;
         }
-        return stack.getItem().getDefaultTooltipHideFlags(stack);
+        return ItemStackHelper.getDefaultTooltipHideFlags(stack);
     }
 
     public static void setHideFlags(ItemStack stack, int mask) {
-        stack.getOrCreateTag().putInt("HideFlags", mask);
+        NBTHelper.setCustomTagToItemStack(stack, t -> t.putInt("HideFlags", mask));
     }
 }

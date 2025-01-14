@@ -9,8 +9,9 @@ import com.tacz.guns.api.item.gun.AbstractGunItem;
 import com.tacz.guns.api.item.gun.FireMode;
 import com.tacz.guns.api.item.gun.GunItemManager;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.EnumMap;
 
@@ -68,7 +69,7 @@ public final class GunItemBuilder {
         String itemType = TimelessAPI.getCommonGunIndex(gunId).map(index -> index.getPojo().getItemType()).orElse(null);
         Preconditions.checkArgument(itemType != null, "Could not found gun id: " + gunId);
 
-        RegistryObject<? extends AbstractGunItem> gunItemRegistryObject = GunItemManager.getGunItemRegistryObject(itemType);
+        DeferredHolder<Item, ? extends AbstractGunItem> gunItemRegistryObject = GunItemManager.getGunItemRegistryObject(itemType);
         Preconditions.checkArgument(gunItemRegistryObject != null, "Could not found gun item type: " + itemType);
 
         ItemStack gun = new ItemStack(gunItemRegistryObject.get(), this.count);

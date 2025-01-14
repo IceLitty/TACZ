@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.tacz.guns.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "refmap": "tacz.refmap.json",
   "mixins": [
     "common.LivingEntityMixin",
@@ -19,8 +19,7 @@
     "client.LanguageMixin",
     "client.LocalPlayerMixin",
     "client.MouseHandlerMixin",
-    "client.PlayerModelMixin",
-    "client.StairBlockAccessor"
+    "client.PlayerModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

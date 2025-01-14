@@ -1,14 +1,25 @@
 package com.tacz.guns.entity.sync.core;
 
 import com.google.common.collect.ImmutableSet;
+import com.mrcrayfish.framework.api.event.EntityEvents;
+import com.mrcrayfish.framework.api.event.PlayerEvents;
+import com.mrcrayfish.framework.api.event.TickEvents;
 import com.tacz.guns.GunMod;
 import com.tacz.guns.init.CommonRegistry;
+import com.tacz.guns.init.ModAttachment;
+import com.tacz.guns.network.message.ServerMessageUpdateEntityData;
 import com.tacz.guns.network.message.handshake.ServerMessageSyncedEntityDataMapping;
 import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
 import it.unimi.dsi.fastutil.ints.Int2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.*;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -20,12 +31,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
- * Author: MrCrayfish.
+ * <p>Basically a clone of DataParameter system. It's not good to init custom data parameters to
+ * other entities that aren't your own. It can cause mismatched ids and crash the game. This synced
+ * data system attempts to solve the problem (at least for player entities) and allows data to be
+ * easily synced to clients. The data can only be controlled on the logical server. Changing the
+ * data on the logical client will have no affect on the server.</p>
+ * <p></p>
+ * <p>To use this system you first need to create a synced data key instance. This should be a public
+ * static final field. You will need to specify an key id (based on your modid), the serializer, and
+ * a default value supplier.</p>
+ * <code>public static final SyncedDataKey&lt;Double&gt; CURRENT_SPEED = SyncedDataKey.create(new ResourceLocation("examplemod:speed"), Serializers.DOUBLE, () -> 0.0);</code>
+ * <p></p>
+ * <p>Next the key needs to be registered. This can simply be done in the common setup of your mod.</p>
+ * <code>SyncedPlayerData.instance().registerKey(CURRENT_SPEED);</code>
+ * <p></p>
+ * <p>Then anywhere you want (as long as it's on the main thread), you can set the value by calling</p>
+ * <code>SyncedPlayerData.instance().set(player, CURRENT_SPEED, 5.0);</code>
+ * <p></p>
+ * <p>The value can be retrieved on the server or client by calling</p>
+ * <code>SyncedPlayerData.instance().get(player, CURRENT_SPEED);</code>
+ * <p></p>
+ * <p>Author: MrCrayfish</p>
  * Open source at <a href="https://github.com/MrCrayfish/Framework">Github</a> under LGPL License.
  */
 public class SyncedEntityData {
-    private static final Marker SYNCED_ENTITY_DATA_MARKER = MarkerManager.getMarker("SYNCED_ENTITY_DATA_TAC_COPY");
-    private static SyncedEntityData INSTANCE;
+    private static final Marker SYNCED_ENTITY_DATA_MARKER = MarkerManager.getMarker("SYNCED_ENTITY_DATA");
+    private static SyncedEntityData instance;
 
     private final Set<SyncedClassKey<?>> registeredClassKeys = new HashSet<>();
     private final Object2ObjectMap<ResourceLocation, SyncedClassKey<?>> idToClassKey = new Object2ObjectOpenHashMap<>();
@@ -39,17 +70,22 @@ public class SyncedEntityData {
     private final Int2ReferenceMap<SyncedDataKey<?, ?>> syncedIdToKey = new Int2ReferenceOpenHashMap<>();
 
     private final AtomicInteger nextIdTracker = new AtomicInteger();
-    private final List<Entity> dirtyEntities = new ArrayList<>();
-    private boolean dirty = false;
+    private final Set<Entity> pendingEntitiesForSync = new HashSet<>();
+    private boolean needsSync = false;
 
     private SyncedEntityData() {
+        // TODO just call lib function
+        PlayerEvents.START_TRACKING_ENTITY.register(this::onStartTracking);
+        EntityEvents.JOIN_LEVEL.register(this::onEntityJoinWorld);
+        TickEvents.END_SERVER.register(this::onServerTickEnd);
+        PlayerEvents.COPY.register(this::onPlayerClone);
     }
 
     public static SyncedEntityData instance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SyncedEntityData();
+        if (instance == null) {
+            instance = new SyncedEntityData();
         }
-        return INSTANCE;
+        return instance;
     }
 
     private <E extends Entity> void registerClassKey(SyncedClassKey<E> classKey) {
@@ -98,11 +134,8 @@ public class SyncedEntityData {
             throw new IllegalArgumentException(String.format("The synced data key %s for %s is not registered!", key.id(), key.classKey().id()));
         }
         DataHolder holder = this.getDataHolder(entity);
-        if (holder != null && holder.set(entity, key, value)) {
-            if (!entity.level().isClientSide()) {
-                this.dirty = true;
-                this.dirtyEntities.add(entity);
-            }
+        if (holder != null) {
+            holder.set(key, value);
         }
     }
 
@@ -123,20 +156,28 @@ public class SyncedEntityData {
         return holder != null ? holder.get(key) : key.defaultValueSupplier().get();
     }
 
+    public <E extends Entity, T> void updateClientEntry(Entity entity, DataEntry<E, T> entry) {
+        SyncedEntityData.instance().set(entity, entry.getKey(), entry.getValue());
+    }
+
     public int getInternalId(SyncedDataKey<?, ?> key) {
         return this.internalIds.getInt(key);
     }
 
-    @Nullable
-    public SyncedClassKey<?> getClassKey(ResourceLocation id) {
-        return idToClassKey.get(id);
+    SyncedClassKey<?> getClassKey(ResourceLocation id) {
+        return this.idToClassKey.get(id);
+    }
+
+    Map<ResourceLocation, SyncedDataKey<?, ?>> getDataKeys(SyncedClassKey<?> key) {
+        return this.classToKeys.get(key);
     }
 
     @Nullable
-    public SyncedDataKey<?, ?> getKey(int id) {
+    SyncedDataKey<?, ?> getKey(int id) {
         return this.syncedIdToKey.get(id);
     }
 
+    @Deprecated
     @Nullable
     public SyncedDataKey<?, ?> getKey(SyncedClassKey<?> classKey, ResourceLocation dataKey) {
         Map<ResourceLocation, SyncedDataKey<?, ?>> keys = SyncedEntityData.instance().classToKeys.get(classKey);
@@ -152,42 +193,19 @@ public class SyncedEntityData {
 
     @Nullable
     public DataHolder getDataHolder(Entity entity) {
-        return entity.getCapability(DataHolderCapabilityProvider.CAPABILITY, null).resolve().orElse(null);
+        return entity.getData(ModAttachment.DATA_HOLDER).setup(entity);
     }
 
-//    public boolean hasSyncedDataKey(Class<? extends Entity> entityClass) {
-//        // Gets the class name capability cache for the effective side.
-//        // This is needed to avoid concurrency issue due to client and server threads;
-//        // fast util does not support concurrent maps.
-//        Object2BooleanMap<String> cache = EffectiveSide.get().isClient() ? this.clientClassNameCapabilityCache : this.serverClassNameCapabilityCache;
-//        // It's possible that the entity doesn't have a key, but it's superclass or subsequent does have a synced data key.
-//        // In order to prevent checking this every time we attach the capability, a simple one time check can be performed then cache the result.
-//        return cache.computeIfAbsent(entityClass.getName(), c -> {
-//            Class<?> targetClass = entityClass;
-//            // Should be good enough
-//            while (!targetClass.isAssignableFrom(Entity.class)) {
-//                if (this.classNameToClassKey.containsKey(targetClass.getName())) {
-//                    return true;
-//                }
-//                targetClass = targetClass.getSuperclass();
-//            }
-//            return false;
-//        });
-//    }
-
-    public boolean hasSyncedDataKey(Entity entity)
-    {
+    public boolean hasSyncedDataKey(Entity entity) {
         /* It's possible that the entity doesn't have a key, but it's superclass or subsequent does
          * have a synced data key. In order to prevent checking this every time we attach the
          * capability, a simple one time check can be performed then cache the result. */
         Class<? extends Entity> entityClass = entity.getClass();
-        return this.getClassNameCapabilityCache(entity.level().isClientSide).computeIfAbsent(entityClass.getName(), c ->
-        {
+        return this.getClassNameCapabilityCache(entity.level().isClientSide).computeIfAbsent(entityClass.getName(), c -> {
             Class<?> targetClass = entityClass;
-            while(!targetClass.isAssignableFrom(Entity.class)) // Should be good enough
-            {
-                if(this.classNameToClassKey.containsKey(targetClass.getName()))
-                {
+            // Should be good enough
+            while (!targetClass.isAssignableFrom(Entity.class)) {
+                if (this.classNameToClassKey.containsKey(targetClass.getName())) {
                     return true;
                 }
                 targetClass = targetClass.getSuperclass();
@@ -196,9 +214,89 @@ public class SyncedEntityData {
         });
     }
 
-    private Map<String, Boolean> getClassNameCapabilityCache(boolean client)
-    {
+    /**
+     * Gets the class name capability cache for the effective side. This is needed to avoid
+     * concurrency issue due to client and server threads; fast util does not support concurrent maps.
+     */
+    private Map<String, Boolean> getClassNameCapabilityCache(boolean client) {
         return client ? this.clientClassNameCapabilityCache : this.serverClassNameCapabilityCache;
+    }
+
+    private void onStartTracking(Entity target, Player player) {
+        if (!player.level().isClientSide() && this.hasSyncedDataKey(target)) {
+            DataHolder holder = this.getDataHolder(target);
+            if (holder != null) {
+                List<DataEntry<?, ?>> entries = holder.gatherAllTrackingDataEntries();
+                entries.removeIf(entry -> !entry.getKey().syncMode().isTracking());
+                if (!entries.isEmpty()) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new ServerMessageUpdateEntityData(target.getId(), entries));
+                }
+            }
+        }
+    }
+
+    private void onEntityJoinWorld(Entity entity, Level level, boolean disk) {
+        if (entity instanceof Player player && !level.isClientSide() && this.hasSyncedDataKey(player)) {
+            DataHolder holder = this.getDataHolder(player);
+            if (holder != null) {
+                List<DataEntry<?, ?>> entries = holder.gatherAllTrackingDataEntries();
+                if (!entries.isEmpty()) {
+                    PacketDistributor.sendToPlayer((ServerPlayer) player, new ServerMessageUpdateEntityData(player.getId(), entries));
+                }
+            }
+        }
+    }
+
+    private void onPlayerClone(Player oldPlayer, Player newPlayer, boolean respawn) {
+        if (!this.hasSyncedDataKey(newPlayer))
+            return;
+        DataHolder oldHolder = this.getDataHolder(oldPlayer); // , true
+        if (oldHolder == null)
+            return;
+        DataHolder newHolder = this.getDataHolder(newPlayer);
+        if (newHolder == null)
+            return;
+        RegistryAccess access = newPlayer.registryAccess();
+        Map<SyncedDataKey<?, ?>, DataEntry<?, ?>> dataMap = new HashMap<>();
+        oldHolder.dataMap.forEach((key, entry) -> {
+            if (respawn || key.persistent()) {
+                DataEntry<?, ?> newEntry = new DataEntry<>(newHolder, key);
+                newEntry.readValue(entry.writeValue(access), access);
+                dataMap.put(key, newEntry);
+            }
+        });
+        newHolder.dataMap = dataMap;
+    }
+
+    private void onServerTickEnd(MinecraftServer server) {
+        if (!this.needsSync)
+            return;
+        if (this.pendingEntitiesForSync.isEmpty()) {
+            this.needsSync = false;
+            return;
+        }
+        for (Entity entity : this.pendingEntitiesForSync) {
+            // Don't sync entities that are removed
+            if (entity.isRemoved())
+                continue;
+            DataHolder holder = this.getDataHolder(entity);
+            if (holder == null || !holder.isPendingSync())
+                continue;
+            List<DataEntry<?, ?>> entries = holder.gatherPendingSyncDataEntries();
+            if (entries.isEmpty())
+                continue;
+            List<DataEntry<?, ?>> selfEntries = entries.stream().filter(entry -> entry.getKey().syncMode().isSelf()).collect(Collectors.toList());
+            if (!selfEntries.isEmpty() && entity instanceof ServerPlayer) {
+                PacketDistributor.sendToPlayer((ServerPlayer) entity, new ServerMessageUpdateEntityData(entity.getId(), selfEntries));
+            }
+            List<DataEntry<?, ?>> trackingEntries = entries.stream().filter(entry -> entry.getKey().syncMode().isTracking()).collect(Collectors.toList());
+            if (!trackingEntries.isEmpty()) {
+                PacketDistributor.sendToPlayersTrackingEntity(entity, new ServerMessageUpdateEntityData(entity.getId(), trackingEntries));
+            }
+            holder.clearSync();
+        }
+        this.pendingEntitiesForSync.clear();
+        this.needsSync = false;
     }
 
     public boolean updateMappings(ServerMessageSyncedEntityDataMapping message) {
@@ -231,15 +329,33 @@ public class SyncedEntityData {
         return missingKeys.isEmpty();
     }
 
+//    public List<S2CSyncedEntityData> getConfigurationMessages() {
+//        Map<ResourceLocation, List<Pair<ResourceLocation, Integer>>> map = new HashMap<>();
+//        this.getKeys().forEach(key -> {
+//            int id = this.getInternalId(key);
+//            map.computeIfAbsent(key.classKey().id(), c -> new ArrayList<>()).add(Pair.of(key.id(), id));
+//        });
+//        return List.of(new S2CSyncedEntityData(map));
+//    }
+
     public boolean isDirty() {
-        return dirty;
+        return this.needsSync;
     }
 
     public void setDirty(boolean dirty) {
-        this.dirty = dirty;
+        this.needsSync = dirty;
     }
 
-    public List<Entity> getDirtyEntities() {
-        return dirtyEntities;
+    boolean markForSync(Entity entity) {
+        if (entity != null && !entity.level().isClientSide() && !entity.isRemoved()) {
+            this.needsSync = true;
+            this.pendingEntitiesForSync.add(entity);
+            return true;
+        }
+        return false;
+    }
+
+    public Set<Entity> getDirtyEntities() {
+        return this.pendingEntitiesForSync;
     }
 }

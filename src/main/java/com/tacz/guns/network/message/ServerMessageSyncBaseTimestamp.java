@@ -3,38 +3,42 @@ package com.tacz.guns.network.message;
 import com.tacz.guns.GunMod;
 import com.tacz.guns.api.client.gameplay.IClientPlayerGunOperator;
 import com.tacz.guns.client.gameplay.LocalPlayerDataHolder;
-import com.tacz.guns.network.NetworkHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
 import java.util.Objects;
-import java.util.function.Supplier;
 
-public class ServerMessageSyncBaseTimestamp {
+public record ServerMessageSyncBaseTimestamp() implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<ServerMessageSyncBaseTimestamp> TYPE =
+            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, "s2c_sync_base_timestamp"));
+    public static final StreamCodec<FriendlyByteBuf, ServerMessageSyncBaseTimestamp> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public ServerMessageSyncBaseTimestamp decode(FriendlyByteBuf pBuffer) {
+            return new ServerMessageSyncBaseTimestamp();
+        }
+        @Override
+        public void encode(FriendlyByteBuf pBuffer, ServerMessageSyncBaseTimestamp pValue) {
+        }
+    };
     private static final Marker MARKER = MarkerManager.getMarker("SYNC_BASE_TIMESTAMP");
 
-    public ServerMessageSyncBaseTimestamp() { }
-
-    public static void encode(ServerMessageSyncBaseTimestamp message, FriendlyByteBuf buf) { }
-
-    public static ServerMessageSyncBaseTimestamp decode(FriendlyByteBuf buf) {
-        return new ServerMessageSyncBaseTimestamp();
+    public static void clientHandler(final ServerMessageSyncBaseTimestamp message, final IPayloadContext context) {
+        long timestamp = System.currentTimeMillis();
+        context.enqueueWork(() -> updateBaseTimestamp(timestamp));
+        context.reply(new ServerMessageSyncBaseTimestamp());
     }
 
-    public static void handle(ServerMessageSyncBaseTimestamp message, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        if (context.getDirection().getReceptionSide().isClient()) {
-            long timestamp = System.currentTimeMillis();
-            context.enqueueWork(() -> updateBaseTimestamp(timestamp));
-        }
-        context.setPacketHandled(true);
-        NetworkHandler.CHANNEL.reply(new ClientMessageSyncBaseTimestamp(), context);
+    public static void serverHandler(final ServerMessageSyncBaseTimestamp message, final IPayloadContext context) {
+        context.reply(new ServerMessageSyncBaseTimestamp());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -42,6 +46,11 @@ public class ServerMessageSyncBaseTimestamp {
         LocalPlayer player = Objects.requireNonNull(Minecraft.getInstance().player);
         LocalPlayerDataHolder dataHolder = IClientPlayerGunOperator.fromLocalPlayer(player).getDataHolder();
         dataHolder.clientBaseTimestamp = timestamp;
-        GunMod.LOGGER.debug(MARKER, "Update client base timestamp: {}", dataHolder.clientBaseTimestamp);
+//        GunMod.LOGGER.debug(MARKER, "Update client base timestamp: {}", dataHolder.clientBaseTimestamp);
+    }
+
+    @Override
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

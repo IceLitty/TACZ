@@ -1,24 +1,36 @@
 package com.tacz.guns.entity.sync.core;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import org.apache.commons.lang3.Validate;
 
+import javax.annotation.Nullable;
+
+/**
+ * Author: MrCrayfish.
+ * Open source at <a href="https://github.com/MrCrayfish/Framework">Github</a> under LGPL License.
+ */
 public class DataEntry<E extends Entity, T> {
+    private final SyncSignal signal;
+    private final DataHolder holder;
     private final SyncedDataKey<E, T> key;
     private T value;
-    private boolean dirty;
+    private boolean pendingSync;
 
-    public DataEntry(SyncedDataKey<E, T> key) {
+    DataEntry(DataHolder holder, SyncedDataKey<E, T> key) {
+        this.holder = holder;
         this.key = key;
         this.value = key.defaultValueSupplier().get();
+        this.signal = new SyncSignal(this::markForSync);
+        this.updateSignal();
     }
 
-    public static DataEntry<?, ?> read(FriendlyByteBuf buffer) {
+    public static DataEntry<?, ?> read(RegistryFriendlyByteBuf buffer) {
         SyncedDataKey<?, ?> key = SyncedEntityData.instance().getKey(buffer.readVarInt());
         Validate.notNull(key, "Synced key does not exist for id");
-        DataEntry<?, ?> entry = new DataEntry<>(key);
+        DataEntry<?, ?> entry = new DataEntry<>(null, key);
         entry.readValue(buffer);
         return entry;
     }
@@ -31,34 +43,59 @@ public class DataEntry<E extends Entity, T> {
         return this.value;
     }
 
-    public void setValue(T value, boolean dirty) {
+    void setValue(T value) {
+        this.removeSignal();
         this.value = value;
-        this.dirty = dirty;
+        this.updateSignal();
+        this.markForSync();
     }
 
-    public boolean isDirty() {
-        return this.dirty;
+    public void markForSync() {
+        if (this.key.syncMode().willSync()) {
+            if (this.holder != null && this.holder.markForSync()) {
+                this.pendingSync = true;
+            }
+        }
     }
 
-    public void clean() {
-        this.dirty = false;
+    boolean isPendingSync() {
+        return this.pendingSync;
     }
 
-    public void write(FriendlyByteBuf buffer) {
+    void clearSync() {
+        this.pendingSync = false;
+    }
+
+    public void write(RegistryFriendlyByteBuf buffer) {
         int id = SyncedEntityData.instance().getInternalId(this.key);
         buffer.writeVarInt(id);
-        this.key.serializer().write(buffer, this.value);
+        this.key.serializer().getCodec().encode(buffer, this.value);
     }
 
-    public void readValue(FriendlyByteBuf buffer) {
-        this.value = this.getKey().serializer().read(buffer);
+    private void readValue(RegistryFriendlyByteBuf buffer) {
+        this.value = this.getKey().serializer().getCodec().decode(buffer);
     }
 
-    public Tag writeValue() {
-        return this.key.serializer().write(this.value);
+    @Nullable
+    Tag writeValue(HolderLookup.Provider provider) {
+        return this.key.serializer().getTagWriter().apply(this.value, provider);
     }
 
-    public void readValue(Tag nbt) {
-        this.value = this.key.serializer().read(nbt);
+    void readValue(@Nullable Tag tag, HolderLookup.Provider provider) {
+        this.removeSignal();
+        this.value = this.key.serializer().getTagReader().apply(tag, provider);
+        this.updateSignal();
+    }
+
+    private void updateSignal() {
+        if (this.value instanceof SyncSignal.Consumer consumer) {
+            consumer.accept(this.signal);
+        }
+    }
+
+    private void removeSignal() {
+        if (this.value instanceof SyncSignal.Consumer consumer) {
+            consumer.accept(null);
+        }
     }
 }

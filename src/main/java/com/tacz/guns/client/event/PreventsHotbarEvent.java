@@ -1,18 +1,19 @@
 package com.tacz.guns.client.event;
 
+import com.tacz.guns.GunMod;
 import com.tacz.guns.client.gui.GunRefitScreen;
 import com.tacz.guns.client.gui.GunSmithTableScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT)
+@EventBusSubscriber(modid = GunMod.MOD_ID, value = Dist.CLIENT)
 public class PreventsHotbarEvent {
     @SubscribeEvent
-    public static void onRenderHotbarEvent(RenderGuiOverlayEvent.Pre event) {
+    public static void onRenderHotbarEvent(RenderGuiLayerEvent.Pre event) {
         // todo 需要测试行为
         Screen screen = Minecraft.getInstance().screen;
         // 枪械合成台界面关闭背景

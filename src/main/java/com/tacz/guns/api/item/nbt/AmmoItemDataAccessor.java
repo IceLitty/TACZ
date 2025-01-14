@@ -4,8 +4,7 @@ import com.tacz.guns.api.DefaultAssets;
 import com.tacz.guns.api.TimelessAPI;
 import com.tacz.guns.api.item.IAmmo;
 import com.tacz.guns.api.item.IGun;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import com.tacz.guns.util.helper.NBTHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -19,9 +18,9 @@ public interface AmmoItemDataAccessor extends IAmmo {
     @Override
     @Nonnull
     default ResourceLocation getAmmoId(ItemStack ammo) {
-        CompoundTag nbt = ammo.getOrCreateTag();
-        if (nbt.contains(AMMO_ID_TAG, Tag.TAG_STRING)) {
-            ResourceLocation gunId = ResourceLocation.tryParse(nbt.getString(AMMO_ID_TAG));
+        String _gunId = NBTHelper.getTagValueFromItemStack(ammo, AMMO_ID_TAG, (String) null);
+        if (_gunId != null) {
+            ResourceLocation gunId = ResourceLocation.tryParse(_gunId);
             return Objects.requireNonNullElse(gunId, DefaultAssets.EMPTY_AMMO_ID);
         }
         return DefaultAssets.EMPTY_AMMO_ID;
@@ -29,12 +28,7 @@ public interface AmmoItemDataAccessor extends IAmmo {
 
     @Override
     default void setAmmoId(ItemStack ammo, @Nullable ResourceLocation ammoId) {
-        CompoundTag nbt = ammo.getOrCreateTag();
-        if (ammoId != null) {
-            nbt.putString(AMMO_ID_TAG, ammoId.toString());
-            return;
-        }
-        nbt.putString(AMMO_ID_TAG, DefaultAssets.DEFAULT_AMMO_ID.toString());
+        NBTHelper.setCustomTagToItemStack(ammo, t -> t.putString(AMMO_ID_TAG, ammoId == null ? DefaultAssets.DEFAULT_AMMO_ID.toString() : ammoId.toString()));
     }
 
     @Override
