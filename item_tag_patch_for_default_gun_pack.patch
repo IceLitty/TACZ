@@ -1,0 +1,2892 @@
+Subject: [PATCH] item tag patch for default gun pack
+---
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_3.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 36
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_sro_dot.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_sro_dot.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_sro_dot.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_sro_dot.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_sro_dot.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_knight_qd.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_knight_qd.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_knight_qd.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_knight_qd.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_knight_qd.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t2.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 1
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_light.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_light.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_light.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_light.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_light.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_magpul_afg_2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_magpul_afg_2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_magpul_afg_2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_magpul_afg_2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_magpul_afg_2.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_6h3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_6h3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_6h3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_6h3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_6h3.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ursus.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ursus.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ursus.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ursus.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ursus.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_2.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 20
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_fmj.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_fmj.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_fmj.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_fmj.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_fmj.json	(date 1708950488000)
+@@ -8,7 +8,7 @@
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_phantom_s1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_phantom_s1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_phantom_s1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_phantom_s1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_phantom_s1.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_exp3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_exp3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_exp3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_exp3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_exp3.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 5
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_tactical_ar.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_tactical_ar.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_tactical_ar.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_tactical_ar.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_tactical_ar.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_militech_b5.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_militech_b5.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_militech_b5.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_militech_b5.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_militech_b5.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_hp.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_hp.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_hp.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_hp.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_hp.json	(date 1708950488000)
+@@ -8,7 +8,7 @@
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ptilopsis.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ptilopsis.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ptilopsis.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ptilopsis.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_ptilopsis.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_compensator_trident.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_compensator_trident.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_compensator_trident.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_compensator_trident.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_compensator_trident.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_retro_2x.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_retro_2x.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_retro_2x.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_retro_2x.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_retro_2x.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_2.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 26
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 12
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_acog_ta31.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_acog_ta31.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_acog_ta31.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_acog_ta31.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_acog_ta31.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_1.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_standard_8x.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_standard_8x.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_standard_8x.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_standard_8x.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_standard_8x.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/glowstone"
++        "tag": "c:dusts/glowstone"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_heavy.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_heavy.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_heavy.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_heavy.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_heavy.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_rmr_dot.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_rmr_dot.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_rmr_dot.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_rmr_dot.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_rmr_dot.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_pioneer.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_pioneer.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_pioneer.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_pioneer.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_pioneer.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_mirage.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_mirage.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_mirage.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_mirage.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_mirage.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_1.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cthulhu.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cthulhu.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cthulhu.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cthulhu.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cthulhu.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/extended_mag_3.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 32
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_vulture.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_vulture.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_vulture.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_vulture.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_silencer_vulture.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_trex.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_trex.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_trex.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_trex.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_trex.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/rpg_rocket.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/rpg_rocket.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/rpg_rocket.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/rpg_rocket.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/rpg_rocket.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 30
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 12
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/12g.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/12g.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/12g.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/12g.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/12g.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:nuggets/iron"
++        "tag": "c:nuggets/iron"
+       },
+       "count": 18
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x39.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x39.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x39.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x39.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x39.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/68x51fury.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/68x51fury.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/68x51fury.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/68x51fury.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/68x51fury.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sniper_extended_mag_1.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_552.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_552.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_552.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_552.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_552.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 5
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x54.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x54.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x54.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x54.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x54.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 25
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/9mm.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/9mm.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/9mm.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/9mm.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/9mm.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/308.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/308.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/308.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/308.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/308.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 30
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       }
+     }
+   ],
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/45acp.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/45acp.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/45acp.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/45acp.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/45acp.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/30_06.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/30_06.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/30_06.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/30_06.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/30_06.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 20
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/57x28.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/57x28.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/57x28.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/57x28.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/57x28.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 5
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/46x30.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/46x30.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/46x30.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/46x30.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/46x30.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/40mm.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/40mm.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/40mm.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/40mm.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/40mm.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 9
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 9
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x25.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x25.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x25.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x25.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/762x25.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_2.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_tactical.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_tactical.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_tactical.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_tactical.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/oem_stock_tactical.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_coyote.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_coyote.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_coyote.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_coyote.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_coyote.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_lpvo_1_6.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_lpvo_1_6.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_lpvo_1_6.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_lpvo_1_6.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_lpvo_1_6.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/glowstone"
++        "tag": "c:dusts/glowstone"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_m9.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_m9.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_m9.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_m9.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/bayonet_m9.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_elcan_4x.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_elcan_4x.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_elcan_4x.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_elcan_4x.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/scope_elcan_4x.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 5
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 10
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_ranger.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_ranger.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_ranger.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_ranger.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_ranger.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cyclone_d2.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cyclone_d2.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cyclone_d2.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cyclone_d2.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/muzzle_brake_cyclone_d2.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_talon.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_talon.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_talon.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_talon.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_talon.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 11
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_uh1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_uh1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_uh1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_uh1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_uh1.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_carbon_bone_c5.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_carbon_bone_c5.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_carbon_bone_c5.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_carbon_bone_c5.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/stock_carbon_bone_c5.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/light_extended_mag_3.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/sight_t1.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:dusts/redstone"
++        "tag": "c:dusts/redstone"
+       },
+       "count": 1
+     },
+     {
+       "item": {
+-        "tag": "forge:glass"
++        "tag": "c:glass_blocks"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/deagle_golden_long_barrel.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/deagle_golden_long_barrel.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/deagle_golden_long_barrel.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/deagle_golden_long_barrel.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/deagle_golden_long_barrel.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 30
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 10
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_military.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_military.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_military.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_military.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/grip_vertical_military.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+     {
+       "item": {
+-        "tag": "forge:leather"
++        "tag": "c:leathers"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_i.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_i.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_i.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_i.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/attachments/ammo_mod_i.json	(date 1708950488000)
+@@ -13,7 +13,7 @@
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ak47.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ak47.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ak47.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ak47.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ak47.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 38
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 6
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/uzi.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/uzi.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/uzi.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/uzi.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/uzi.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 32
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpg7.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpg7.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpg7.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpg7.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpg7.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 70
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 4
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m107.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m107.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m107.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m107.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m107.json	(date 1708950488000)
+@@ -2,31 +2,31 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 18
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 64
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/netherite"
++        "tag": "c:ingots/netherite"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 320
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/cz75.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/cz75.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/cz75.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/cz75.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/cz75.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 17
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m4a1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m4a1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m4a1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m4a1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m4a1.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 38
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 6
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle_golden.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle_golden.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle_golden.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle_golden.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle_golden.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 1
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 32
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       }
+     }
+   ],
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ai_awp.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ai_awp.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ai_awp.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ai_awp.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ai_awp.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 10
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 50
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 200
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m95.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m95.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m95.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m95.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m95.json	(date 1708950488000)
+@@ -2,31 +2,31 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 60
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/netherite"
++        "tag": "c:ingots/netherite"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 300
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpk.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpk.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpk.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpk.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/rpk.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 56
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aa12.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aa12.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aa12.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aa12.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aa12.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 80
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 2
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_l.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_l.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_l.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_l.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_l.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 48
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m870.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m870.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m870.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m870.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m870.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 25
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/type_81.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/type_81.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/type_81.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/type_81.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/type_81.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 28
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/sks_tactical.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/sks_tactical.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/sks_tactical.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/sks_tactical.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/sks_tactical.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 40
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/deagle.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 2
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 6
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 42
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       }
+     }
+   ],
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/357mag.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/357mag.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/357mag.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/357mag.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/357mag.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 25
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/556x45.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/556x45.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/556x45.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/556x45.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/556x45.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/vector45.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/vector45.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/vector45.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/vector45.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/vector45.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 60
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 10
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_h.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_h.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_h.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_h.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/scar_h.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 96
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 2
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/338.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/338.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/338.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/338.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/338.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 25
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50ae.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50ae.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50ae.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50ae.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50ae.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 30
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 7
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/58x42.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/58x42.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/58x42.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/58x42.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/58x42.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50bmg.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50bmg.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50bmg.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50bmg.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/ammo/50bmg.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/copper"
++        "tag": "c:ingots/copper"
+       },
+       "count": 110
+     },
+     {
+       "item": {
+-        "tag": "forge:gunpowder"
++        "tag": "c:gunpowders"
+       },
+       "count": 20
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 12
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       }
+     }
+   ],
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/glock_17.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/glock_17.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/glock_17.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/glock_17.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/glock_17.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p320.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p320.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p320.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p320.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p320.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 28
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_short.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_short.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_short.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_short.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_short.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p90.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p90.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p90.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p90.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/p90.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 8
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 72
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/qbz_95.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/qbz_95.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/qbz_95.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/qbz_95.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/qbz_95.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 40
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 3
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m700.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m700.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m700.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m700.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m700.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 1
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 45
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m320.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m320.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m320.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m320.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m320.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 15
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 50
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 6
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ump45.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ump45.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ump45.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ump45.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/ump45.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 5
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 62
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 3
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a1.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a1.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a1.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a1.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a1.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 32
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 6
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m249.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m249.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m249.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m249.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m249.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 110
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 2
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m1911.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m1911.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m1911.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m1911.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m1911.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 16
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aug.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aug.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aug.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aug.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/aug.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 39
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+@@ -20,7 +20,7 @@
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/amethyst"
++        "tag": "c:gems/amethyst"
+       },
+       "count": 1
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_g3.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_g3.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_g3.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_g3.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_g3.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 9
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 72
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 5
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk416d.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk416d.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk416d.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk416d.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk416d.json	(date 1708950488000)
+@@ -2,19 +2,19 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 16
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 64
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/quartz"
++        "tag": "c:gems/quartz"
+       },
+       "count": 8
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a4.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a4.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a4.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a4.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/m16a4.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 36
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 8
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_long.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_long.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_long.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_long.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/db_long.json	(date 1708950488000)
+@@ -2,7 +2,7 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 14
+     },
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_mp5a5.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_mp5a5.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_mp5a5.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_mp5a5.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/hk_mp5a5.json	(date 1708950488000)
+@@ -2,13 +2,13 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 36
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/lapis"
++        "tag": "c:gems/lapis"
+       },
+       "count": 4
+     }
+Index: src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/mk14.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/mk14.json b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/mk14.json
+--- a/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/mk14.json	(revision b875a96d6fbf20cd94d866135734b22026d049d7)
++++ b/src/main/resources/assets/tacz/custom/tacz_default_gun/data/tacz/recipes/gun/mk14.json	(date 1708950488000)
+@@ -2,25 +2,25 @@
+   "materials": [
+     {
+       "item": {
+-        "tag": "forge:ingots/gold"
++        "tag": "c:ingots/gold"
+       },
+       "count": 20
+     },
+     {
+       "item": {
+-        "tag": "forge:ingots/iron"
++        "tag": "c:ingots/iron"
+       },
+       "count": 84
+     },
+     {
+       "item": {
+-        "tag": "forge:gems/diamond"
++        "tag": "c:gems/diamond"
+       },
+       "count": 4
+     },
+     {
+       "item": {
+-        "tag": "forge:rods/blaze"
++        "tag": "c:rods/blaze"
+       },
+       "count": 2
+     }
