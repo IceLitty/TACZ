@@ -99,16 +99,21 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.init.CapabilityRegistry`
 - [x] Fix rpg crash when explode with entity
   - `com.tacz.guns.util.block.ProjectileExplosion.explode` with null entity called `BlockRayTrace.rayTraceBlocks`
-- [ ] GunSmithTable not work (recipe ? and render black-purple blank item)
+- [ ] GunSmithTable not work
 - [ ] Statue not work
 - [x] 3rd gun pack not loading
   - Maybe same problem with GunSmithTable recipe problem `com.tacz.guns.resource.CommonAssetsManager.onReload(net.neoforged.neoforge.event.TagsUpdatedEvent)`
   - Find **unzip folder can loading**, why
   - Sometimes just /tacz reload then texture can load, why???
-- [ ] Test recipe with type `forge:partial_nbt` in gun pack, may need convert neoforge accepted format
+- [ ] Test recipe with type `forge:partial_nbt` in gun pack, may need convert to neoforge accepted format
   - `net.neoforged.neoforge.common.crafting.DataComponentIngredient`
 - [ ] Scope attachment is not working
   - Seems some angle can see though scope, wtf, need check render method
+- [ ] Internal (and gun pack ? or just recipes json) need be upgrade
+  - pack.mcmeta must be upgrade to version 48 `https://minecraft.wiki/w/Tutorial:Creating_a_data_pack`
+  - folder structure need modify `https://minecraft.wiki/w/Data_pack#Folder_structure`
+  - May only need change folder name, gun pack recipes folder name, and try to fix `com.tacz.guns.crafting.GunSmithTableSerializer.codec` from `fromJson`
+  - Fine, json format is changed, see `https://minecraft.wiki/w/Recipe#crafting_shaped` and `src\main\resources\data\tacz\recipe\iron_ammo_box.json`
 - [ ] full runtime test
 - 
 

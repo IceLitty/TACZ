@@ -1,51 +1,64 @@
 package com.tacz.guns.crafting;
 
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tacz.guns.GunMod;
 import com.tacz.guns.crafting.result.GunSmithTableResult;
 import com.tacz.guns.resource.CommonAssetsManager;
 import com.tacz.guns.resource.pojo.data.recipe.TableRecipe;
+import com.tacz.guns.util.helper.MapCodecHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Nullable;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * 此类为数据包侧载枪械工作台的实现<br>
  * 枪包的序列化不在此处
  */
 public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRecipe> {
-    @Nullable
-    public GunSmithTableRecipe fromJson(ResourceLocation id, JsonObject jsonObject) {
-        TableRecipe tableRecipe = CommonAssetsManager.GSON.fromJson(jsonObject, TableRecipe.class);
-        if (tableRecipe != null) {
-            return new GunSmithTableRecipe(id, tableRecipe);
+
+    public static String byteArrayToHexString(byte[] b) {
+        String result = "";
+        for (int i=0; i < b.length; i++) {
+            result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
         }
-        return null;
+        return result;
     }
 
     @Override
     public MapCodec<GunSmithTableRecipe> codec() {
-        return RecordCodecBuilder.mapCodec(inst -> inst.group(
-                ResourceLocation.CODEC.fieldOf("recipeId").forGetter(GunSmithTableRecipe::getId),
-                Codec.pair(Ingredient.CODEC, Codec.INT).listOf().fieldOf("ingredient").forGetter(r -> r.getInputs().stream().map(_r -> new Pair<>(_r.getIngredient(),_r.getCount())).toList()),
-                ItemStack.CODEC.fieldOf("result").forGetter(r -> r.getResult().getResult()),
-                Codec.STRING.fieldOf("group").forGetter(r -> r.getResult().getGroup())
-        ).apply(inst, (recipeId, ingredient, result, resultGroup) -> {
-            List<GunSmithTableIngredient> ingredients = new ArrayList<>();
-            for (Pair<Ingredient, Integer> pair : ingredient) {
-                ingredients.add(new GunSmithTableIngredient(pair.getFirst(), pair.getSecond()));
+
+        return new MapCodec<>() {
+            @Override
+            public <T> Stream<T> keys(DynamicOps<T> ops) {
+                return Stream.empty();
             }
-            return new GunSmithTableRecipe(recipeId, new GunSmithTableResult(result, resultGroup), ingredients);
-        }));
+            @Override
+            public <T> DataResult<GunSmithTableRecipe> decode(DynamicOps<T> ops, MapLike<T> input) {
+                JsonObject jsonObject = MapCodecHelper.turnMapLikeBackToJsonObject(input);
+                TableRecipe tableRecipe = CommonAssetsManager.GSON.fromJson(jsonObject, TableRecipe.class);
+                if (tableRecipe != null) {
+                    String id = byteArrayToHexString(Base64.getEncoder().encode(jsonObject.toString().getBytes(StandardCharsets.UTF_8)));
+                    return new DataResult.Success<>(new GunSmithTableRecipe(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, id), tableRecipe), Lifecycle.stable());
+                }
+                return new DataResult.Error<>(() -> "Input is not valid gun smith table recipe.", Optional.empty(), Lifecycle.stable());
+            }
+            @Override
+            public <T> RecordBuilder<T> encode(GunSmithTableRecipe input, DynamicOps<T> ops, RecordBuilder<T> prefix) {
+                GunMod.LOGGER.error("Not implemented yet when encode recipe " + input);
+                return prefix;
+            }
+        };
     }
 
     @Override
