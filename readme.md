@@ -109,12 +109,12 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `net.neoforged.neoforge.common.crafting.DataComponentIngredient`
 - [ ] Scope attachment is not working
   - Seems some angle can see though scope, wtf, need check render method
-- [ ] Internal (and gun pack ? or just recipes json) need be upgrade
+- [x] Internal (and gun pack ? or just recipes json) need be upgrade
   - pack.mcmeta must be upgrade to version 48 `https://minecraft.wiki/w/Tutorial:Creating_a_data_pack`
   - folder structure need modify `https://minecraft.wiki/w/Data_pack#Folder_structure`
     - [ ] make gun pack updater util
   - May only need change folder name, gun pack recipes folder name, and try to fix `com.tacz.guns.crafting.GunSmithTableSerializer.codec` from `fromJson`
-    - [ ] How to get resource location of recipes? what about keys method..
+    - [x] How to get resource location of recipes? what about keys method..
   - Fine, json format is changed, see `https://minecraft.wiki/w/Recipe#crafting_shaped` and `src\main\resources\data\tacz\recipe\iron_ammo_box.json`
 - [ ] full runtime test
 - 

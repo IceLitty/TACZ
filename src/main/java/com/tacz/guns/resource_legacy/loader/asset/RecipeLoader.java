@@ -28,7 +28,7 @@ import java.util.zip.ZipFile;
 
 public final class RecipeLoader {
     private static final Marker MARKER = MarkerManager.getMarker("RecipeLoader");
-    private static final Pattern RECIPES_PATTERN = Pattern.compile("^(\\w+)/recipes/([\\w/]+)\\.json$");
+    private static final Pattern RECIPES_PATTERN = Pattern.compile("^(\\w+)/recipe/([\\w/]+)\\.json$");
 
     public static boolean load(ZipFile zipFile, String zipPath) {
         Matcher matcher = RECIPES_PATTERN.matcher(zipPath);

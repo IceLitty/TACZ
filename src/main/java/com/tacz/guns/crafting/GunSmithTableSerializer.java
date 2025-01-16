@@ -37,7 +37,6 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
 
     @Override
     public MapCodec<GunSmithTableRecipe> codec() {
-
         return new MapCodec<>() {
             @Override
             public <T> Stream<T> keys(DynamicOps<T> ops) {
