@@ -13,8 +13,8 @@ import java.util.Map;
 public class PackConvertorHelper {
 
     public static void main(String[] args) {
-        convertFolderFrom15To48("C:\\Users\\IceRain\\IdeaProjects\\TACZ-Fork\\src\\main\\resources");
-        convertFolderFrom15To48("C:\\Users\\IceRain\\IdeaProjects\\TACZ-Fork\\src\\main\\resources\\assets\\tacz\\custom\\tacz_default_gun");
+        convertFolderFrom15To48("C:\\TACZ-Fork\\src\\main\\resources");
+        convertFolderFrom15To48("C:\\TACZ-Fork\\src\\main\\resources\\assets\\tacz\\custom\\tacz_default_gun");
     }
 
     /**
@@ -191,17 +191,18 @@ public class PackConvertorHelper {
     }
 
     /**
-     * { "item": "minecraft:xxx" } -> { "id": "minecraft:xxx" }
      * { "tag": "forge:xxx" } -> { "tag": "c:xxx" }
      */
     private static boolean convertFrom15To48InnerRecipeIngredients(JsonObject itemObject) {
         boolean modified = false;
-        if (itemObject.has("item")) {
-            JsonElement item = itemObject.get("item");
-            itemObject.add("id", item);
-            itemObject.remove("item");
-            modified = true;
-        }
+        // not changed in 1.21.1
+        // { "item": "minecraft:xxx" } -> { "id": "minecraft:xxx" }
+//        if (itemObject.has("item")) {
+//            JsonElement item = itemObject.get("item");
+//            itemObject.add("id", item);
+//            itemObject.remove("item");
+//            modified = true;
+//        }
         if (itemObject.has("tag")) {
             String tag = itemObject.getAsJsonPrimitive("tag").getAsString();
             modified = true;
@@ -222,6 +223,14 @@ public class PackConvertorHelper {
             itemObject.add("tag", new JsonPrimitive(tag));
         }
         return modified;
+    }
+
+    /**
+     * { "function": "minecraft:copy_nbt", ... } -> { "function": "minecraft:copy_custom_data", ... }
+     */
+    private static boolean convertFrom15To48InnerLootTableFunctions(JsonObject funcObject) {
+        // TODO loot_table/blocks transfer
+        return false;
     }
 
 }

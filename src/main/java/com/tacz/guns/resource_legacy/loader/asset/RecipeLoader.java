@@ -55,7 +55,7 @@ public final class RecipeLoader {
     }
 
     public static void load(File root) {
-        Path filePath = root.toPath().resolve("recipes");
+        Path filePath = root.toPath().resolve("recipe");
         if (Files.isDirectory(filePath)) {
             TacPathVisitor visitor = new TacPathVisitor(filePath.toFile(), root.getName(), ".json", (id, file) -> {
                 try (InputStream stream = Files.newInputStream(file)) {
