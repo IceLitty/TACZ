@@ -13,7 +13,7 @@
       "tag": "c:ingots/iron"
     },
     "R": {
-      "id": "minecraft:redstone"
+      "item": "minecraft:redstone"
     },
     "P": {
       "tag": "minecraft:planks"

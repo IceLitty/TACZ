@@ -9,10 +9,10 @@
   ],
   "key": {
     "A": {
-      "id": "tacz:target"
+      "item": "tacz:target"
     },
     "B": {
-      "id": "minecraft:minecart"
+      "item": "minecraft:minecart"
     }
   }
 }

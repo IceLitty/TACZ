@@ -6,22 +6,22 @@
   },
   "ingredients": [
     {
-      "id": "minecraft:flint"
+      "item": "minecraft:flint"
     },
     {
-      "id": "minecraft:sugar"
+      "item": "minecraft:sugar"
     },
     {
-      "id": "minecraft:sugar"
+      "item": "minecraft:sugar"
     },
     {
-      "id": "minecraft:charcoal"
+      "item": "minecraft:charcoal"
     },
     {
-      "id": "minecraft:charcoal"
+      "item": "minecraft:charcoal"
     },
     {
-      "id": "minecraft:charcoal"
+      "item": "minecraft:charcoal"
     }
   ]
 }
