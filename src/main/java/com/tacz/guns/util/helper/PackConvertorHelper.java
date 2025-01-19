@@ -208,7 +208,7 @@ public class PackConvertorHelper {
             modified = true;
             // may have more tag changes in `net.neoforged.neoforge.common.Tags`
             tag = switch (tag) {
-                case "forge:glass" -> "c:glass_block";
+                case "forge:glass" -> "c:glass_blocks";
                 case "forge:leather" -> "c:leathers";
                 case "forge:gunpowder" -> "c:gunpowders";
                 default -> {

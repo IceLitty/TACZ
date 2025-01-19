@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class GunSmithTableRecipe implements Recipe<CraftingInput> {
-    private final ResourceLocation id;
+    private ResourceLocation id;
     private final GunSmithTableResult result;
     private final List<GunSmithTableIngredient> inputs;
 
@@ -48,6 +48,13 @@ public class GunSmithTableRecipe implements Recipe<CraftingInput> {
     @Override
     public ItemStack getResultItem(HolderLookup.Provider providerRegistries) {
         return this.result.getResult().copy();
+    }
+
+    /**
+     * ONLY USED FOR FIX LOADER CHANGES
+     */
+    public void setId(ResourceLocation id) {
+        this.id = id;
     }
 
     public ResourceLocation getId() {

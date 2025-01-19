@@ -47,6 +47,7 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
                 JsonObject jsonObject = MapCodecHelper.turnMapLikeBackToJsonObject(input);
                 TableRecipe tableRecipe = CommonAssetsManager.GSON.fromJson(jsonObject, TableRecipe.class);
                 if (tableRecipe != null) {
+                    // fixed id at com.tacz.guns.event.FixRecipeIdByServerStartedEvent
                     String id = byteArrayToHexString(Base64.getEncoder().encode(jsonObject.toString().getBytes(StandardCharsets.UTF_8)));
                     return new DataResult.Success<>(new GunSmithTableRecipe(ResourceLocation.fromNamespaceAndPath(GunMod.MOD_ID, id), tableRecipe), Lifecycle.stable());
                 }
@@ -74,7 +75,6 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
                 buffer.writeJsonWithCodec(ItemStack.CODEC, recipe.getResult().getResult());
                 buffer.writeUtf(recipe.getResult().getGroup());
             }
-
             @Override
             public GunSmithTableRecipe decode(RegistryFriendlyByteBuf buffer) {
                 ResourceLocation recipeId = buffer.readResourceLocation();

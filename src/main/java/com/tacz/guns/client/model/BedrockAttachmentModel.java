@@ -217,10 +217,10 @@ public class BedrockAttachmentModel extends BedrockAnimatedModel {
         BufferUploader.drawWithShader(builder.build());
         RenderSystem.depthMask(true);
         RenderSystem.colorMask(true, true, true, true);
-        // 渲染目镜黑色遮罩
-        RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
-        RenderSystem.stencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_KEEP);
-        renderTempPart(matrixStack, transformType, renderType, light, overlay, ocularNodePath);
+//        // 渲染目镜黑色遮罩 TODO bug here
+//        RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
+//        RenderSystem.stencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_KEEP);
+//        renderTempPart(matrixStack, transformType, renderType, light, overlay, ocularNodePath);
         // 渲染划分
         if (divisionNodePath != null) {
             RenderSystem.stencilFunc(GL11.GL_EQUAL, 2, 0xFF);

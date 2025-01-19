@@ -99,7 +99,7 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.init.CapabilityRegistry`
 - [x] Fix rpg crash when explode with entity
   - `com.tacz.guns.util.block.ProjectileExplosion.explode` with null entity called `BlockRayTrace.rayTraceBlocks`
-- [ ] GunSmithTable not work
+- [x] GunSmithTable not work
 - [ ] Statue not work
 - [x] 3rd gun pack not loading
   - Maybe same problem with GunSmithTable recipe problem `com.tacz.guns.resource.CommonAssetsManager.onReload(net.neoforged.neoforge.event.TagsUpdatedEvent)`
@@ -107,8 +107,14 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - Sometimes just /tacz reload then texture can load, why???
 - [ ] Test recipe with type `forge:partial_nbt` in gun pack, may need convert to neoforge accepted format
   - `net.neoforged.neoforge.common.crafting.DataComponentIngredient`
-- [ ] Scope attachment is not working
+  - type `forge:partial_nbt` -> `neoforge:components`
+  - `nbt: {}` -> `components: {}`
+  - but still can't render texture directory
+  - [ ] Ingredient tooltip can't show - add resource id? `com.tacz.guns.client.gui.GunSmithTableScreen.renderIngredient`
+    - [ ] Or just fix ingredient loading `com.tacz.guns.util.helper.IngredientHelper.fromJson(com.google.gson.JsonElement, boolean)`
+- [x] Scope attachment is not working
   - Seems some angle can see though scope, wtf, need check render method
+  - Temp remove code `com.tacz.guns.client.model.BedrockAttachmentModel.renderScope`
 - [x] Internal (and gun pack ? or just recipes json) need be upgrade
   - pack.mcmeta must be upgrade to version 48 `https://minecraft.wiki/w/Tutorial:Creating_a_data_pack`
   - folder structure need modify `https://minecraft.wiki/w/Data_pack#Folder_structure`
@@ -160,4 +166,5 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - net.neoforged.neoforge.common.Tags
 - IngredientTypes
   - net.neoforged.neoforge.common.NeoForgeMod.INGREDIENT_TYPES
+  - net.neoforged.neoforge.common.NeoForgeMod.DATA_COMPONENT_INGREDIENT_TYPE
 - 

@@ -9,6 +9,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
@@ -47,10 +48,22 @@ public class IngredientHelper {
      */
     public static Ingredient fromJson(@Nullable JsonElement p_289022_, boolean p_288974_) {
         if (p_289022_ != null && !p_289022_.isJsonNull()) {
-//            Ingredient ret = CraftingHelper.getIngredient(p_289022_, p_288974_);
-//            if (ret != null) return ret;
+            JsonObject ingJson = p_289022_.getAsJsonObject();
+            // TODO fix when enable this with recipe json {"materials":[{"item":{"type":"forge:partial_nbt","item":"tacz:ammo","nbt":{"tacz:data":{"AmmoId":"converted:enduring_victory_pt"}}},"count":6},{"item":{"type":"forge:partial_nbt","item":"tacz:attachment","nbt":{"tacz:data":{"AttachmentId":"tacz:oem_stock_heavy"}},"count":1}}],"result":{"type":"attachment","id":"converted:416sap_heavystock"},"type":"tacz:gun_smith_table_crafting"}
+//            boolean readNbt = ingJson.has("nbt");
+//            ItemStack itemStack = CraftingHelper.getItemStack(ingJson, readNbt);
+//            if (itemStack != null) {
+//                Ingredient ingredient;
+//                if (readNbt) {
+//                    ingredient = DataComponentIngredient.of(false, itemStack);
+//                } else {
+//                    ingredient = Ingredient.of(itemStack);
+//                }
+//                if (ingredient != null)
+//                    return ingredient;
+//            }
             if (p_289022_.isJsonObject()) {
-                return fromValues(Stream.of(valueFromJson(p_289022_.getAsJsonObject())));
+                return fromValues(Stream.of(valueFromJson(ingJson)));
             } else if (p_289022_.isJsonArray()) {
                 JsonArray jsonarray = p_289022_.getAsJsonArray();
                 if (jsonarray.size() == 0 && !p_288974_) {
