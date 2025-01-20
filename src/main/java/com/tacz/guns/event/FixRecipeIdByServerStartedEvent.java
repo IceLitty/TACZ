@@ -13,11 +13,9 @@ public class FixRecipeIdByServerStartedEvent {
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {
-        System.out.println("111");
         for (RecipeHolder<GunSmithTableRecipe> recipeHolder : event.getServer().getRecipeManager().getAllRecipesFor(ModRecipe.GUN_SMITH_TABLE_CRAFTING.get())) {
             recipeHolder.value().setId(recipeHolder.id());
         }
-        System.out.println("222");
     }
 
 }

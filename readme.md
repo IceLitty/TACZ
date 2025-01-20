@@ -4,7 +4,7 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - This is a mirror project of TACZ use neoforge mod loader and mc 1.21.1
 - Try same as original project, just code difference about different mod loader, 1.20.1 and 1.21.1
 - If you want jar, build it by your self
-- State: **Work in progress** Just runnable, not playable
+- State: **Playable** May has some issue
 - 
 
 ## Known issues
@@ -111,7 +111,7 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `nbt: {}` -> `components: {}`
   - but still can't render texture directory
   - [ ] Ingredient tooltip can't show - add resource id? `com.tacz.guns.client.gui.GunSmithTableScreen.renderIngredient`
-    - [ ] Or just fix ingredient loading `com.tacz.guns.util.helper.IngredientHelper.fromJson(com.google.gson.JsonElement, boolean)`
+    - [x] Or just fix ingredient loading `com.tacz.guns.util.helper.IngredientHelper.fromJson(com.google.gson.JsonElement, boolean)`
 - [x] Scope attachment is not working
   - Seems some angle can see though scope, wtf, need check render method
   - Temp remove code `com.tacz.guns.client.model.BedrockAttachmentModel.renderScope`

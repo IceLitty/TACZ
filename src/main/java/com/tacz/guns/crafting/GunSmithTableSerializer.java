@@ -69,7 +69,8 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
                 buffer.writeResourceLocation(recipe.getId());
                 buffer.writeInt(recipe.getInputs().size());
                 for (GunSmithTableIngredient ingredient : recipe.getInputs()) {
-                    buffer.writeJsonWithCodec(Ingredient.CODEC, ingredient.getIngredient());
+                    Ingredient _ing = ingredient.getIngredient();
+                    Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, _ing);
                     buffer.writeInt(ingredient.getCount());
                 }
                 buffer.writeJsonWithCodec(ItemStack.CODEC, recipe.getResult().getResult());
@@ -81,7 +82,7 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
                 int size = buffer.readInt();
                 List<GunSmithTableIngredient> ingredients = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
-                    Ingredient ingredient = buffer.readJsonWithCodec(Ingredient.CODEC);
+                    Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
                     ingredients.add(new GunSmithTableIngredient(ingredient, buffer.readInt()));
                 }
                 ItemStack resultItem = buffer.readJsonWithCodec(ItemStack.CODEC);

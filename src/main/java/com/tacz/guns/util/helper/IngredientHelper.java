@@ -49,19 +49,16 @@ public class IngredientHelper {
     public static Ingredient fromJson(@Nullable JsonElement p_289022_, boolean p_288974_) {
         if (p_289022_ != null && !p_289022_.isJsonNull()) {
             JsonObject ingJson = p_289022_.getAsJsonObject();
-            // TODO fix when enable this with recipe json {"materials":[{"item":{"type":"forge:partial_nbt","item":"tacz:ammo","nbt":{"tacz:data":{"AmmoId":"converted:enduring_victory_pt"}}},"count":6},{"item":{"type":"forge:partial_nbt","item":"tacz:attachment","nbt":{"tacz:data":{"AttachmentId":"tacz:oem_stock_heavy"}},"count":1}}],"result":{"type":"attachment","id":"converted:416sap_heavystock"},"type":"tacz:gun_smith_table_crafting"}
-//            boolean readNbt = ingJson.has("nbt");
-//            ItemStack itemStack = CraftingHelper.getItemStack(ingJson, readNbt);
-//            if (itemStack != null) {
-//                Ingredient ingredient;
-//                if (readNbt) {
-//                    ingredient = DataComponentIngredient.of(false, itemStack);
-//                } else {
-//                    ingredient = Ingredient.of(itemStack);
-//                }
-//                if (ingredient != null)
-//                    return ingredient;
-//            }
+            boolean readNbt = ingJson.has("nbt");
+            if (readNbt) {
+                ItemStack itemStack = CraftingHelper.getItemStack(ingJson, readNbt);
+                if (itemStack != null) {
+                    Ingredient ingredient;
+                    ingredient = DataComponentIngredient.of(false, itemStack);
+                    if (ingredient != null)
+                        return ingredient;
+                }
+            }
             if (p_289022_.isJsonObject()) {
                 return fromValues(Stream.of(valueFromJson(ingJson)));
             } else if (p_289022_.isJsonArray()) {
