@@ -26,11 +26,20 @@ public class ItemStackHelper {
     @SuppressWarnings("JavadocReference")
     public static ItemStack of(CompoundTag baseTag) {
         Item rawItem = BuiltInRegistries.ITEM.get(ResourceLocation.parse(baseTag.getString("id")));
-        int count = baseTag.getByte("Count");
+        int count = baseTag.contains("Count") ? baseTag.getByte("Count") : baseTag.getByte("count");
         ItemStack itemStack = new ItemStack(rawItem, count);
         if (baseTag.contains("tag", Tag.TAG_COMPOUND)) {
             CompoundTag tag = baseTag.getCompound("tag");
             itemStack.set(ModComponents.CUSTOM_DATA, CustomData.of(tag));
+            itemStack.getItem().verifyComponentsAfterLoad(itemStack);
+        }
+        // This code is to fix StatueEntity function
+        if (baseTag.contains("components", Tag.TAG_COMPOUND)) {
+            CompoundTag tag = baseTag.getCompound("components");
+            if (tag.contains(ModComponents.CUSTOM_DATA.getId().toString(), Tag.TAG_COMPOUND)) {
+                CompoundTag nbtTag = tag.getCompound(ModComponents.CUSTOM_DATA.getId().toString());
+                itemStack.set(ModComponents.CUSTOM_DATA, CustomData.of(nbtTag));
+            }
             itemStack.getItem().verifyComponentsAfterLoad(itemStack);
         }
         if (itemStack.getItem().isDamageable(itemStack)) {
@@ -47,6 +56,7 @@ public class ItemStackHelper {
         ResourceLocation resourcelocation = BuiltInRegistries.ITEM.getKey(itemStack.getItem());
         tag.putString("id", resourcelocation.toString());
         tag.putByte("Count", (byte) itemStack.getCount());
+        tag.putByte("count", (byte) itemStack.getCount());
         if (itemStack.has(ModComponents.CUSTOM_DATA)) {
             CustomData customData = itemStack.get(ModComponents.CUSTOM_DATA);
             if (customData != null) {

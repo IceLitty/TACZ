@@ -123,7 +123,7 @@ runs {
         dependencies {
             runtime("curse.maven:shoulder-surfing-reloaded-243190:6043496")
 //            runtime("curse.maven:jei-238222:5846880")
-            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
+//            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
         }
 //        mods {
 //            tacz {
@@ -141,7 +141,7 @@ runs {
         dependencies {
             runtime("curse.maven:shoulder-surfing-reloaded-243190:6043496")
 //            runtime("curse.maven:jei-238222:5846880")
-            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
+//            runtime("mezz.jei:jei-1.21.1-neoforge:19.21.0.247")
         }
 //        mods {
 //            tacz {

@@ -17,6 +17,12 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - Config `tacz-pre.toml` is not working
 - Missing lag compensation, because `ServerPlayer` is no longer has latency counter cache.
   - In class `com.tacz.guns.util.HitboxHelper.getFixedBoundingBox`
+- Craft recipe in smith table will not accept part of nbt tags and must be equals, because in lib code is use equals between tags, may caused by Unit tag?
+  - `net.neoforged.neoforge.common.crafting.DataComponentIngredient.test`
+  - `net.minecraft.core.component.DataComponentPredicate.test(net.minecraft.core.component.DataComponentMap)`
+  - `net.minecraft.world.item.component.CustomData.equals`
+- Scope render works in wrong way, so remove mask and UI to prevent black screen in normal render or iris shader.
+  - `com.tacz.guns.client.model.BedrockAttachmentModel.renderScope`
 - 
 
 ## TODO
@@ -59,21 +65,24 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.client.gui.compat.ClothConfigScreen.registerNoClothConfigPage`
 - [x] Check player animation is can use this deprecated method
   - `com.tacz.guns.compat.playeranimator.animation.PlayerAnimatorAssetManager`
-- [ ] Can't known how to replace AttachCapabilitiesEvent<T>
+- [x] Can't known how to replace AttachCapabilitiesEvent<T>
   - `com.tacz.guns.event.SyncedEntityDataEvent.attachCapabilities`
   - `com.tacz.guns.entity.sync.core.DataHolderCapabilityProvider`
     - May be `IAttachmentSerializer` ? replaced by `com.tacz.guns.entity.sync.core.DataHolderSerializer`
   - `com.tacz.guns.init.CapabilityRegistry`
-- [ ] And Capability System reworked, can't known how to do this
+- [x] And Capability System reworked, can't known how to do this
   - `com.tacz.guns.event.SyncedEntityDataEvent.onPlayerClone`
-- [ ] Can't find spawner data interface replaced by, but it thinks are serialize/deserialize method.
+  - Just try ignore this and upgrade lib code
+- [x] Can't find spawner data interface replaced by, but it thinks are serialize/deserialize method.
   - `com.tacz.guns.entity.EntityKineticBullet.writeSpawnData`
   - `com.tacz.guns.entity.EntityKineticBullet.readSpawnData`
-- [ ] Each server tick produce twice????
+  - Implements `IEntityWithComplexSpawn`
+- [x] Each server tick produce twice????
   - `com.tacz.guns.event.ServerTickEvent.onServerTick`
   - `com.tacz.guns.client.event.TickAnimationEvent.tickAnimation`
   - `com.tacz.guns.client.animation.screen.RefitTransform.tickInterpolation`
   - `com.tacz.guns.client.event.InventoryEvent.onPlayerChangeSelect`
+  - Seems no problem
 - [ ] Check DYED_COLOR is same as "color" tag
   - `com.tacz.guns.item.AmmoBoxItem.getTagColor`
 - [ ] Fake migrate ItemStack's Attachment to CUSTOM_DATA
@@ -88,9 +97,9 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `com.tacz.guns.network.message.ServerMessageSyncBaseTimestamp.updateBaseTimestamp`
   - `com.tacz.guns.network.message.ClientMessageSyncBaseTimestamp`
   - Its a bug I missing replay correctly packet to server, fixed. And not be hide this debug message.
-- [ ] Can I use as Unit DataComponents?
+- [x] Can I use as Unit DataComponents?
   - `com.tacz.guns.init.ModComponents.CUSTOM_DATA` now without `.networkSynchronized(CustomData.STREAM_CODEC)` as Unit DataComponents.
-- [ ] Twice check nbt tag direct write, rework as get readonly tag and write back when source is ItemStack and no provider.
+- [x] Twice check nbt tag direct write, rework as get readonly tag and write back when source is ItemStack and no provider.
   - `com.tacz.guns.api.util.LuaNbtAccessor` any put method like `putCompound`
   - `com.tacz.guns.block.entity.StatueBlockEntity.loadAdditional` now statue is not working, may its problem
   - `com.tacz.guns.block.entity.TargetBlockEntity.saveAdditional` is used for target block render as player?
@@ -100,17 +109,18 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - [x] Fix rpg crash when explode with entity
   - `com.tacz.guns.util.block.ProjectileExplosion.explode` with null entity called `BlockRayTrace.rayTraceBlocks`
 - [x] GunSmithTable not work
-- [ ] Statue not work
+- [x] Statue not work
+  - But seems work probably at render item, when take gun left from statue, it still show ItemStack model. BlockEntity in memory from Render and actual Holder is two difference object, why?
 - [x] 3rd gun pack not loading
   - Maybe same problem with GunSmithTable recipe problem `com.tacz.guns.resource.CommonAssetsManager.onReload(net.neoforged.neoforge.event.TagsUpdatedEvent)`
   - Find **unzip folder can loading**, why
   - Sometimes just /tacz reload then texture can load, why???
-- [ ] Test recipe with type `forge:partial_nbt` in gun pack, may need convert to neoforge accepted format
+- [x] Test recipe with type `forge:partial_nbt` in gun pack, may need convert to neoforge accepted format
   - `net.neoforged.neoforge.common.crafting.DataComponentIngredient`
   - type `forge:partial_nbt` -> `neoforge:components`
   - `nbt: {}` -> `components: {}`
   - but still can't render texture directory
-  - [ ] Ingredient tooltip can't show - add resource id? `com.tacz.guns.client.gui.GunSmithTableScreen.renderIngredient`
+  - [x] Ingredient tooltip can't show - add resource id? `com.tacz.guns.client.gui.GunSmithTableScreen.renderIngredient`
     - [x] Or just fix ingredient loading `com.tacz.guns.util.helper.IngredientHelper.fromJson(com.google.gson.JsonElement, boolean)`
 - [x] Scope attachment is not working
   - Seems some angle can see though scope, wtf, need check render method
