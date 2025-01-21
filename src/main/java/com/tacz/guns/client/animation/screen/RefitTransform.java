@@ -49,9 +49,9 @@ public class RefitTransform {
     }
 
     public static boolean changeRefitScreenView(AttachmentType attachmentType) {
-        if (refitScreenTransformProgress != 1 || refitScreenOpeningProgress != 1) {
-            return false;
-        }
+//        if (refitScreenTransformProgress != 1 || refitScreenOpeningProgress != 1) {
+//            return false;
+//        }
         oldTransformType = currentTransformType;
         currentTransformType = attachmentType;
         refitScreenTransformProgress = 0;
