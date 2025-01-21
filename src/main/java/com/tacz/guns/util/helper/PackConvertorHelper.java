@@ -125,7 +125,13 @@ public class PackConvertorHelper {
                 } else if (entry.isFile()) {
                     try {
                         String json = Files.readString(entry.toPath());
-                        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+                        JsonObject jsonObject;
+                        try {
+                            jsonObject = JsonParser.parseString(json).getAsJsonObject();
+                        } catch (Exception e) {
+                            System.err.println("Wrong json file: " + entry);
+                            continue;
+                        }
                         boolean modified = false;
                         if (jsonObject.has("result")) {
                             JsonObject result = jsonObject.getAsJsonObject("result");
