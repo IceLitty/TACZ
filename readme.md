@@ -23,6 +23,9 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
   - `net.minecraft.world.item.component.CustomData.equals`
 - Scope render works in wrong way, so remove mask and UI to prevent black screen in normal render or iris shader.
   - `com.tacz.guns.client.model.BedrockAttachmentModel.renderScope`
+- Don't use JEI bookmark or creative mode cheat item (TA31 Scope) to main-hand, seems will crash client or cause GUI render error.
+  - May has another items can cause issue same as this scope.
+  - May this issue is caused by bypass scope render fix.
 - 
 
 ## TODO

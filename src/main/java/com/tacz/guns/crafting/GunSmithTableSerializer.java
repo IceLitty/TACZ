@@ -66,15 +66,20 @@ public class GunSmithTableSerializer implements RecipeSerializer<GunSmithTableRe
         return new StreamCodec<>() {
             @Override
             public void encode(RegistryFriendlyByteBuf buffer, GunSmithTableRecipe recipe) {
-                buffer.writeResourceLocation(recipe.getId());
-                buffer.writeInt(recipe.getInputs().size());
-                for (GunSmithTableIngredient ingredient : recipe.getInputs()) {
-                    Ingredient _ing = ingredient.getIngredient();
-                    Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, _ing);
-                    buffer.writeInt(ingredient.getCount());
+                try {
+                    buffer.writeResourceLocation(recipe.getId());
+                    buffer.writeInt(recipe.getInputs().size());
+                    for (GunSmithTableIngredient ingredient : recipe.getInputs()) {
+                        Ingredient _ing = ingredient.getIngredient();
+                        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, _ing);
+                        buffer.writeInt(ingredient.getCount());
+                    }
+                    buffer.writeJsonWithCodec(ItemStack.CODEC, recipe.getResult().getResult());
+                    buffer.writeUtf(recipe.getResult().getGroup());
+                } catch (Exception e) {
+                    GunMod.LOGGER.error("Error when codec recipe: " + recipe.getId(), e);
+                    throw e;
                 }
-                buffer.writeJsonWithCodec(ItemStack.CODEC, recipe.getResult().getResult());
-                buffer.writeUtf(recipe.getResult().getGroup());
             }
             @Override
             public GunSmithTableRecipe decode(RegistryFriendlyByteBuf buffer) {
