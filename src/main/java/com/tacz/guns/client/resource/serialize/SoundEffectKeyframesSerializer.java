@@ -1,6 +1,7 @@
 package com.tacz.guns.client.resource.serialize;
 
 import com.google.gson.*;
+import com.tacz.guns.GunMod;
 import com.tacz.guns.client.resource.pojo.animation.bedrock.SoundEffectKeyframes;
 import it.unimi.dsi.fastutil.doubles.Double2ObjectRBTreeMap;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +23,11 @@ public class SoundEffectKeyframesSerializer implements JsonDeserializer<SoundEff
                 JsonElement value = entrySet.getValue();
                 if (value.isJsonObject()) {
                     String soundId = GsonHelper.getAsString(value.getAsJsonObject(), "effect");
-                    keyframes.put(time, ResourceLocation.parse(soundId));
+                    try {
+                        keyframes.put(time, ResourceLocation.parse(soundId));
+                    } catch (Exception e) {
+                        GunMod.LOGGER.warn("May not exist sound id / resource location: {}", soundId);
+                    }
                 }
             }
             return new SoundEffectKeyframes(keyframes);
