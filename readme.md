@@ -180,4 +180,8 @@ Timeless and Classics Guns Zero is a gun mod for Minecraft Forge 1.20.1.
 - IngredientTypes
   - net.neoforged.neoforge.common.NeoForgeMod.INGREDIENT_TYPES
   - net.neoforged.neoforge.common.NeoForgeMod.DATA_COMPONENT_INGREDIENT_TYPE
+- Color Util
+  - net.minecraft.util.FastColor.ARGB32.colorFromFloat
+- Mappings tool
+  - `https://linkie.shedaniel.dev/mappings`
 - 
