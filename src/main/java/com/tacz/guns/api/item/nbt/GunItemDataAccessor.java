@@ -40,12 +40,12 @@ public interface GunItemDataAccessor extends IGun {
 
     @Override
     default boolean useDummyAmmo(ItemStack gun) {
-        return NBTHelper.getTagValueFromItemStack(gun, GUN_DUMMY_AMMO, (Integer) null) != null;
+        return NBTHelper.getTagValueFromItemStack(gun, GUN_DUMMY_AMMO, (Number) null) != null;
     }
 
     @Override
     default int getDummyAmmoAmount(ItemStack gun) {
-        return Math.max(0, NBTHelper.getTagValueFromItemStack(gun, GUN_DUMMY_AMMO, 0));
+        return Math.max(0, NBTHelper.getTagValueFromItemStack(gun, GUN_DUMMY_AMMO, (Number) 0).intValue());
     }
 
     @Override
@@ -69,13 +69,13 @@ public interface GunItemDataAccessor extends IGun {
 
     @Override
     default boolean hasMaxDummyAmmo(ItemStack gun) {
-        Integer val = NBTHelper.getTagValueFromItemStack(gun, GUN_MAX_DUMMY_AMMO, (Integer) null);
+        Number val = NBTHelper.getTagValueFromItemStack(gun, GUN_MAX_DUMMY_AMMO, (Number) null);
         return val != null;
     }
 
     @Override
     default int getMaxDummyAmmoAmount(ItemStack gun) {
-        Integer val = NBTHelper.getTagValueFromItemStack(gun, GUN_MAX_DUMMY_AMMO, 0);
+        int val = NBTHelper.getTagValueFromItemStack(gun, GUN_MAX_DUMMY_AMMO, (Number) 0).intValue();
         return Math.max(0, val);
     }
 
@@ -130,16 +130,16 @@ public interface GunItemDataAccessor extends IGun {
 
     @Override
     default int getLevel(ItemStack gun) {
-        Integer val = NBTHelper.getTagValueFromItemStack(gun, GUN_EXP_TAG, (Integer) null);
+        Number val = NBTHelper.getTagValueFromItemStack(gun, GUN_EXP_TAG, (Number) null);
         if (val == null) {
             return 0;
         }
-        return getLevel(val);
+        return getLevel(val.intValue());
     }
 
     @Override
     default int getExp(ItemStack gun) {
-        return NBTHelper.getTagValueFromItemStack(gun, GUN_EXP_TAG, 0);
+        return NBTHelper.getTagValueFromItemStack(gun, GUN_EXP_TAG, (Number) 0).intValue();
     }
 
     @Override
@@ -184,7 +184,7 @@ public interface GunItemDataAccessor extends IGun {
 
     @Override
     default int getCurrentAmmoCount(ItemStack gun) {
-        return NBTHelper.getTagValueFromItemStack(gun, GUN_CURRENT_AMMO_COUNT_TAG, 0);
+        return NBTHelper.getTagValueFromItemStack(gun, GUN_CURRENT_AMMO_COUNT_TAG, (Number) 0).intValue();
     }
 
     @Override

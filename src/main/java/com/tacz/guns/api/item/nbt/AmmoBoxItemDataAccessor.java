@@ -34,7 +34,7 @@ public interface AmmoBoxItemDataAccessor extends IAmmoBox {
         if (isAllTypeCreative(ammoBox) || isCreative(ammoBox)) {
             return Integer.MAX_VALUE;
         }
-        return NBTHelper.getTagValueFromItemStack(ammoBox, AMMO_COUNT_TAG, 0);
+        return NBTHelper.getTagValueFromItemStack(ammoBox, AMMO_COUNT_TAG, (Number) 0).intValue();
     }
 
     @Override
@@ -70,7 +70,7 @@ public interface AmmoBoxItemDataAccessor extends IAmmoBox {
 
     @Override
     default int getAmmoLevel(ItemStack ammoBox) {
-        return NBTHelper.getTagValueFromItemStack(ammoBox, LEVEL_TAG, 0);
+        return NBTHelper.getTagValueFromItemStack(ammoBox, LEVEL_TAG, (Number) 0).intValue();
     }
 
     @Override

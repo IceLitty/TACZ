@@ -146,6 +146,27 @@ public class NBTHelper {
         return defaultValue;
     }
 
+    public static Number getTagValueFromItemStack(ItemStack itemStack, String tagKey, Number defaultValue) {
+        CustomData customData = itemStack.get(ModComponents.CUSTOM_DATA);
+        if (customData != null && customData.contains(tagKey)) {
+            Tag tag = customData.copyTag().get(tagKey);
+            if (tag instanceof ByteTag _tag) {
+                return _tag.getAsByte();
+            } else if (tag instanceof ShortTag _tag) {
+                return _tag.getAsShort();
+            } else if (tag instanceof IntTag _tag) {
+                return _tag.getAsInt();
+            } else if (tag instanceof LongTag _tag) {
+                return _tag.getAsLong();
+            } else if (tag instanceof FloatTag _tag) {
+                return _tag.getAsFloat();
+            } else if (tag instanceof DoubleTag _tag) {
+                return _tag.getAsDouble();
+            }
+        }
+        return defaultValue;
+    }
+
     /**
      * {@link net.minecraft.nbt.NbtUtils#readGameProfile}
      */

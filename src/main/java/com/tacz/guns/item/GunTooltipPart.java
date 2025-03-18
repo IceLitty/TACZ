@@ -19,9 +19,9 @@ public enum GunTooltipPart {
     }
 
     public static int getHideFlags(ItemStack stack) {
-        Integer hideFlags = NBTHelper.getTagValueFromItemStack(stack, "HideFlags", (Integer) null);
+        Number hideFlags = NBTHelper.getTagValueFromItemStack(stack, "HideFlags", (Number) null);
         if (hideFlags != null) {
-            return hideFlags;
+            return hideFlags.intValue();
         }
         return ItemStackHelper.getDefaultTooltipHideFlags(stack);
     }
